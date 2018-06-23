@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mood Tracker</string>
+    <string name="mood_happy">I feel great!</string>
 </resources>
