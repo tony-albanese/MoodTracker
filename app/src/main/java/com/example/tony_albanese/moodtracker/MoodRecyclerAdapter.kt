@@ -28,18 +28,15 @@ class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>
 
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.mood_card_layout, viewGroup, false)
         return ViewHolder(v)
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        return moods.size
+        return 2
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         viewHolder.itemText.text = moods[i]
         viewHolder.imageItem.setImageResource(images[i])
     }
