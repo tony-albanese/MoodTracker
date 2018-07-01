@@ -1,7 +1,6 @@
 package com.example.tony_albanese.moodtracker
 
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +17,25 @@ class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>
 
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
             //Empty
+            var imageItem: ImageView
+            var itemText: TextView
+
+            init {
+                imageItem = itemView.findViewById(R.id.card_mood_image)
+                itemText = itemView.findViewById(R.id.card_mood_text)
+            }
         }
 
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.mood_card_layout, viewGroup, false)
+        return ViewHolder(v)
     }
 
     override fun getItemCount(): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
