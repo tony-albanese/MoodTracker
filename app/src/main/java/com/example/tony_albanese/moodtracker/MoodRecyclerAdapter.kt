@@ -35,10 +35,12 @@ class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>
 
     override fun getItemCount(): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        
+        return moods.size
     }
 
-    override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
+    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        viewHolder.itemText.text = moods[i]
+        viewHolder.imageItem.setImageResource(images[i])
     }
 }
