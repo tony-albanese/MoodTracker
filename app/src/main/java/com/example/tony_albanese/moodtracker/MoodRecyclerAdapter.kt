@@ -9,32 +9,32 @@ import android.widget.TextView
 import android.widget.Toast
 
 /* This class defines the RecyclerView Adapter object that will handle the moods the user can select from. This is NOT the adapter for the moods the user enters.*/
-class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>(){
+class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>() {
 
     //Will include some dummy data here that will NOT be included in the final project.
-    private val moods = arrayOf("Feeling Great!", "Feeling OK" )
-    private val images = intArrayOf(R.mipmap.smiley_super_happy, R.mipmap.smiley_normal)
+    private val moods = arrayOf("Feeling Great!", "Feeling OK", "Feeling sad.")
+    private val images = intArrayOf(R.mipmap.smiley_super_happy, R.mipmap.smiley_normal, R.mipmap.smiley_sad)
 
-        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-            //Empty
-            var imageItem: ImageView
-            var itemText: TextView
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var imageItem: ImageView
+        var itemText: TextView
 
-            init {
-                imageItem = itemView.findViewById(R.id.card_mood_image)
-                itemText = itemView.findViewById(R.id.card_mood_text)
+        init {
+            imageItem = itemView.findViewById(R.id.card_mood_image)
+            itemText = itemView.findViewById(R.id.card_mood_text)
 
-                itemView.setOnClickListener{ v: View ->
-                    var position: Int = adapterPosition
-                    val textView = v.findViewById<TextView>(R.id.card_mood_text)
+            /* This sets the onClickListener for each item in the RecyclerView.*/
+            // TODO: Implement a method to set the daily mood when the user taps on a card.
+            itemView.setOnClickListener { v: View ->
+                var position: Int = adapterPosition
+                val textView = v.findViewById<TextView>(R.id.card_mood_text)
 
-                    val toast = Toast.makeText(v.context, textView.text, Toast.LENGTH_SHORT)
-                    toast.show();
+                val toast = Toast.makeText(v.context, textView.text, Toast.LENGTH_SHORT)
+                toast.show();
 
-                }
             }
         }
-
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.mood_card_layout, viewGroup, false)
