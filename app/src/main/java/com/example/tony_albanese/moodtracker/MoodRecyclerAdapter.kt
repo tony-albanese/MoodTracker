@@ -1,12 +1,12 @@
 package com.example.tony_albanese.moodtracker
 
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 
 /* This class defines the RecyclerView Adapter object that will handle the moods the user can select from. This is NOT the adapter for the moods the user enters.*/
 class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>(){
@@ -28,8 +28,8 @@ class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>
                     var position: Int = adapterPosition
                     val textView = v.findViewById<TextView>(R.id.card_mood_text)
 
- Snackbar.make(v, textView.text,
-            Snackbar.LENGTH_LONG).setAction("Action", null).show()
+                    val toast = Toast.makeText(v.context, textView.text, Toast.LENGTH_SHORT)
+                    toast.show();
 
                 }
             }
