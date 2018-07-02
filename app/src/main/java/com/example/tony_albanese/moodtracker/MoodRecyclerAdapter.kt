@@ -26,8 +26,10 @@ class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>
 
                 itemView.setOnClickListener{ v: View ->
                     var position: Int = adapterPosition
-                    Snackbar.make(v, moods[position], Snackbar.LENGTH_LONG).setAction("Action", null).show()
+                    val textView = v.findViewById<TextView>(R.id.card_mood_text)
 
+ Snackbar.make(v, textView.text,
+            Snackbar.LENGTH_LONG).setAction("Action", null).show()
 
                 }
             }
