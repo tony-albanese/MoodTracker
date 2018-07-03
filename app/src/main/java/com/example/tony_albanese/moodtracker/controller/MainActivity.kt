@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.EditText
 import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.Mood
 import kotlinx.android.synthetic.main.activity_main.*
@@ -51,7 +52,11 @@ class MainActivity : AppCompatActivity() {
 
 
     fun createCommentDialogue(){
+        val commentText: EditText = EditText(this)
+        //TODO: Format the EditText object
+        //TODO: Add positive button.
         val dialog = AlertDialog.Builder(this)
+        dialog.setView(commentText)
         dialog.setTitle("How are you feeling?")
                 .setMessage("Enter a comment.")
                 .setNegativeButton("Cancel",null)
