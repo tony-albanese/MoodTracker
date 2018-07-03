@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tony_albanese.moodtracker.model.Mood
 
 /* This class defines the RecyclerView Adapter object that will handle the moods the user can select from. This is NOT the adapter for the moods the user enters.*/
-class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>() {
+class MoodRecyclerAdapter(val moodList: ArrayList<Mood>) : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>() {
 
     //Will include some dummy data here that will NOT be included in the final project.
     private val moods = arrayOf("Feeling Great!", "Feeling OK", "Feeling sad.")
@@ -42,11 +43,12 @@ class MoodRecyclerAdapter : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>
     }
 
     override fun getItemCount(): Int {
-        return moods.size
+        return moodList.size
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.itemText.text = moods[i]
+        val mood = moodList[i]
+        viewHolder.itemText.text = mood.mDescription
         viewHolder.imageItem.setImageResource(images[i])
     }
 }
