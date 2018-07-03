@@ -1,5 +1,9 @@
 <resources>
     <string name="default_mood_description">No description specified.</string>
     <string name="app_name">Mood Tracker</string>
-    <string name="mood_happy">I feel great!</string>
+    <string name="mood_super_happy">I feel really, really, good!</string>
+    <string name="mood_happy">I feel happy!</string>
+    <string name="mood_normal">I feel OK.</string>
+    <string name="mood_disappointed">I feel disappointed.</string>
+    <string name="mood_sad">I feel sad.</string>
 </resources>
