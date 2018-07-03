@@ -48,7 +48,7 @@ class MoodRecyclerAdapter(val moodList: ArrayList<Mood>) : RecyclerView.Adapter<
         val mood = moodList[i]
         viewHolder.itemText.text = mood.mDescription
         viewHolder.imageItem.setImageResource(mood.mImageId)
-       // viewHolder.imageItem.setBackgroundResource(R.color.banana_yellow)
+        viewHolder.imageItem.setBackgroundResource(mood.mBackgoundColor)
 
     }
 }
