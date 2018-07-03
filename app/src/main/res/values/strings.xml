@@ -1,4 +1,5 @@
 <resources>
+    <string name="default_mood_description">No description specified.</string>
     <string name="app_name">Mood Tracker</string>
     <string name="mood_happy">I feel great!</string>
 </resources>
