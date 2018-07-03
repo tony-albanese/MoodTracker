@@ -1,4 +1,4 @@
-package com.example.tony_albanese.moodtracker
+package com.example.tony_albanese.moodtracker.controller
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.Mood
 
 /* This class defines the RecyclerView Adapter object that will handle the moods the user can select from. This is NOT the adapter for the moods the user enters.*/

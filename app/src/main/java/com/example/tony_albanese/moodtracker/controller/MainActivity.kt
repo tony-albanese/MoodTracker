@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.example.tony_albanese.moodtracker.MoodRecyclerAdapter
 import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.Mood
 import kotlinx.android.synthetic.main.activity_main.*
