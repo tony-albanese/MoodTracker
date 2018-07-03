@@ -6,9 +6,9 @@
 
     <!-- Background colors used for the different moods -->
     <!-- TODO: Rename these colors to match the moods. -->
-    <color name="faded_red">#ffde3c50</color>
-    <color name="warm_grey">#ff9b9b9b</color>
-    <color name="cornflower_blue_65">#a5468ad9</color>
-    <color name="light_sage">#ffb8e986</color>
-    <color name="banana_yellow">#fff9ec4f</color>
+    <color name="color_sad">#ffde3c50</color>
+    <color name="color_disappointed">#ff9b9b9b</color>
+    <color name="color_normal">#a5468ad9</color>
+    <color name="color_happy">#ffb8e986</color>
+    <color name="color_super_happy">#fff9ec4f</color>
 </resources>
