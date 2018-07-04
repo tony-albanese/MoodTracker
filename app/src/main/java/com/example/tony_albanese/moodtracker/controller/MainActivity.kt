@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
 
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
+          val newMood: Mood = Mood("Added from tap.", R.mipmap.smiley_sad,R.color.color_super_happy)
             val intent: Intent = Intent(this, MoodHistoryActivity::class.java)
             startActivity(intent)
         }
@@ -64,4 +65,6 @@ class MainActivity : AppCompatActivity() {
 
         dialog.show()
     }
+
+
 }

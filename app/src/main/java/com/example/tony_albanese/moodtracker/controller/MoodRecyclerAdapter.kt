@@ -51,4 +51,6 @@ class MoodRecyclerAdapter(val moodList: ArrayList<Mood>) : RecyclerView.Adapter<
         viewHolder.imageItem.setBackgroundResource(mood.mBackgoundColor)
 
     }
+
+
 }
