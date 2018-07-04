@@ -34,7 +34,9 @@ class MoodHistoryRecyclerAdapter : RecyclerView.Adapter<MoodHistoryRecyclerAdapt
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         viewHolder.historyDateTextView.text = dates[i]
-        viewHolder.historyDescriptionTextView.text = "I'll pass a description hre."
+        viewHolder.historyDescriptionTextView.text = "I'll pass a description here."
+
+        viewHolder.historyDescriptionTextView.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_comment_black_48px, 0)
         viewHolder.historyImageView.setImageResource(moodImages[i])
     }
 
