@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.Mood
 
 /* This class defines the RecyclerView Adapter object that will handle the moods the user can select from. This is NOT the adapter for the moods the user enters.*/
+//The MoodRecyclerAdapter acceps an ArrayList of Mood objects as it's parameter.
 class MoodRecyclerAdapter(val moodList: ArrayList<Mood>) : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>() {
 
+    //TODO: Implemenet clickListener here.
+    //The ViewHolder class defines the views from the CardLayout that will be "held" and populated in the RecyclerView.
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageItem: ImageView
@@ -21,29 +23,22 @@ class MoodRecyclerAdapter(val moodList: ArrayList<Mood>) : RecyclerView.Adapter<
         init {
             imageItem = itemView.findViewById(R.id.card_mood_image)
             itemText = itemView.findViewById(R.id.card_mood_text)
-
-            /* This sets the onClickListener for each item in the RecyclerView.*/
-            // TODO: Implement a method to set the daily mood when the user taps on a card.
-            itemView.setOnClickListener { v: View ->
-                var position: Int = adapterPosition
-                val textView = v.findViewById<TextView>(R.id.card_mood_text)
-
-                val toast = Toast.makeText(v.context, textView.text, Toast.LENGTH_SHORT)
-                toast.show();
-
-            }
         }
+
     }
 
+    //This method inflates the layout into a ViewHolder that contains the CardView. The views to populated are children of the ViewHolder.
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.mood_card_layout, viewGroup, false)
         return ViewHolder(v)
     }
 
+    //This function returns the number of items that need to be displayed.
     override fun getItemCount(): Int {
         return moodList.size
     }
 
+    //This function binds the data from the ArrayList to the views held in the ViewHolder object.
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val mood = moodList[i]
         viewHolder.itemText.text = mood.mDescription
