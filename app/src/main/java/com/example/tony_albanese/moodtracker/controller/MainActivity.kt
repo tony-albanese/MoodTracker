@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.Mood
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
         recycler_view.layoutManager = layoutManager //Attach the layout manager to the recycler_view.
 
-        adapter = MoodRecyclerAdapter(moodList) //Initialize our adapter variable with a MoodReyclerAdapter object. We pass in our data as a paramater.
+        adapter = MoodRecyclerAdapter(moodList, {mood: Mood -> moodItemClicked(mood)}) //Initialize our adapter variable with a MoodReyclerAdapter object. We pass in our data as a paramater.
         recycler_view.adapter = adapter //Set the adapter property of the recycler_view to the adapter we just created.
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
@@ -65,5 +66,9 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    //This is the function we want called when the user clicks on a mood in the list.
+    private fun moodItemClicked(mood: Mood){
+        Toast.makeText(this, "Clicked: ${mood.mDescription }.", Toast.LENGTH_SHORT).show()
+    }
 
 }

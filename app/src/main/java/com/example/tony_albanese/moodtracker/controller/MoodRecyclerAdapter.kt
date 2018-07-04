@@ -10,8 +10,8 @@ import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.Mood
 
 /* This class defines the RecyclerView Adapter object that will handle the moods the user can select from. This is NOT the adapter for the moods the user enters.*/
-//The MoodRecyclerAdapter acceps an ArrayList of Mood objects as it's parameter.
-class MoodRecyclerAdapter(val moodList: ArrayList<Mood>) : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>() {
+//The MoodRecyclerAdapter acceps an ArrayList of Mood objects as it's parameter as well as a function with signature that accepts a Mood as a parameter and no return.
+class MoodRecyclerAdapter(val moodList: ArrayList<Mood>, val clickListener: (Mood) -> Unit) : RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>() {
 
     //TODO: Implemenet clickListener here.
     //The ViewHolder class defines the views from the CardLayout that will be "held" and populated in the RecyclerView.
@@ -44,8 +44,10 @@ class MoodRecyclerAdapter(val moodList: ArrayList<Mood>) : RecyclerView.Adapter<
         viewHolder.itemText.text = mood.mDescription
         viewHolder.imageItem.setImageResource(mood.mImageId)
         viewHolder.imageItem.setBackgroundResource(mood.mBackgoundColor)
-
+        viewHolder.imageItem.setOnClickListener {clickListener(mood)}
     }
+
+
 
 
 }
