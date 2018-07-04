@@ -8,9 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.tony_albanese.moodtracker.R
+import java.util.*
+
 
 class MoodHistoryRecyclerAdapter : RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>() {
-    private var dates = arrayOf("Date 1", "Date 2", "Date 3")
+    var day = Date()
+    private var dates = arrayOf(convertDate(day), convertDate(day), convertDate(day))
     private var dailyComments = arrayOf("I just found a job.", "My project works!", null)
     private var moodImages = intArrayOf(R.mipmap.smiley_sad, R.mipmap.smiley_normal, R.mipmap.smiley_super_happy)
 
