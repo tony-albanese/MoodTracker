@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.tony_albanese.moodtracker.R
 
 class MoodHistoryRecyclerAdapter : RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>() {
@@ -36,12 +37,24 @@ class MoodHistoryRecyclerAdapter : RecyclerView.Adapter<MoodHistoryRecyclerAdapt
         viewHolder.historyDateTextView.text = dates[i]
         viewHolder.historyDescriptionTextView.text = "I'll pass a description here."
 
-        viewHolder.historyDescriptionTextView.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_comment_black_48px, 0)
+            if(!dailyComments[i].isNullOrBlank()){
+                viewHolder.historyDescriptionTextView.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_comment_black_48px, 0)
+                viewHolder.historyDescriptionTextView.setOnClickListener { v: View ->
+                    var comment = dailyComments[i].toString()
+                    makeCommentToast(v, comment)
+                }
+            }
+
         viewHolder.historyImageView.setImageResource(moodImages[i])
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.mood_history_card_layout, viewGroup, false)
         return ViewHolder(v)
+    }
+
+    fun makeCommentToast(view: View, comment: String){
+        val toast = Toast.makeText(view.context, comment, Toast.LENGTH_SHORT)
+        toast.show();
     }
 }
