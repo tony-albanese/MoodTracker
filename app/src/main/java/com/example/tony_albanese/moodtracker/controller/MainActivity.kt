@@ -10,11 +10,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import com.example.tony_albanese.moodtracker.R
+import com.example.tony_albanese.moodtracker.model.DailyMood
 import com.example.tony_albanese.moodtracker.model.Mood
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import java.io.Serializable
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private var moodList =  ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
@@ -24,8 +26,9 @@ class MainActivity : AppCompatActivity() {
     public var currentMood: Mood = Mood("I feel happy.", R.mipmap.smiley_happy, R.color.color_happy)
     val PREFERENCES_KEY_COMMENT: String = "PREFERENCES_KEY_COMMENT"
     val PREFERENCES_KEY_IMAGE_ID: String = "PREFERENCES_KEY_IMAGE_ID"
+    val KEY_DAILY_MOOD_LIST: String = "DAILY_MOOD_LIST"
     var dailyComment: String = ""
-
+    val dailyMoodList = ArrayList<DailyMood>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
             val intent: Intent = Intent(this, MoodHistoryActivity::class.java)
+            //TODO: Make this serializable.
+            intent.putExtra(KEY_DAILY_MOOD_LIST, dailyMoodList as Serializable)
             startActivity(intent)
         }
         //Set the click listener for the comment fab that will trigger the generation of the dialog.
@@ -80,16 +85,13 @@ class MainActivity : AppCompatActivity() {
 
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood){
-        Toast.makeText(this, "Clicked: ${mood.mDescription } with comment ${dailyComment}", Toast.LENGTH_SHORT).show()
         currentMood = mood
-        //store the currently clicked moodImageID as the daily mood.
-        preferences.edit().putInt(PREFERENCES_KEY_IMAGE_ID, currentMood.mImageId).apply()
+        val dateObject = Date()
+        val date: String = convertDate(dateObject)
+
+        //Create a new DailyMood object and add it to the array.
+        dailyMoodList.add(DailyMood("Hello", R.mipmap.smiley_super_happy, R.color.color_happy,"My comment", date))
+        //TODO: Add Toast and delay so user can't swipe like crazy.
         //TODO: This is where the selected mood should be serialized and saved in SharedPreferences.
     }
-
-    //This is a dummy function to simulate the transition that should occur when it is midnight.
-    fun midnightRecordMood(){
-        //TODO Maybe implement this function as a broadcast receiver.
-    }
-
 }
