@@ -23,9 +23,8 @@ class MainActivity : AppCompatActivity() {
     private var layoutManager: RecyclerView.LayoutManager? = null //Create a reference to the layout manager that will organize the views in the RecyclerAdapter.
     private var adapter: RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>? = null //Create a reference to our custom adapter.
     lateinit var preferences: SharedPreferences
-    public var currentMood: Mood = Mood("I feel happy.", R.mipmap.smiley_happy, R.color.color_happy)
+    var currentMood: Mood = Mood("I feel happy.", R.mipmap.smiley_happy, R.color.color_happy)
     val PREFERENCES_KEY_COMMENT: String = "PREFERENCES_KEY_COMMENT"
-    val PREFERENCES_KEY_IMAGE_ID: String = "PREFERENCES_KEY_IMAGE_ID"
     val KEY_DAILY_MOOD_LIST: String = "DAILY_MOOD_LIST"
     var dailyComment: String = ""
     val dailyMoodList = ArrayList<DailyMood>()
