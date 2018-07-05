@@ -84,12 +84,12 @@ class MainActivity : AppCompatActivity() {
         currentMood = mood
         //store the currently clicked moodImageID as the daily mood.
         preferences.edit().putInt(PREFERENCES_KEY_IMAGE_ID, currentMood.mImageId).apply()
-        midnightRecordMood()
+        //TODO: This is where the selected mood should be serialized and saved in SharedPreferences.
     }
 
     //This is a dummy function to simulate the transition that should occur when it is midnight.
     fun midnightRecordMood(){
-
+        //TODO Maybe implement this function as a broadcast receiver.
     }
 
 }
