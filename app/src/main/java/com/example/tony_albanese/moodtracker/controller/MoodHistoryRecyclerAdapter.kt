@@ -8,14 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.tony_albanese.moodtracker.R
-import java.util.*
+import com.example.tony_albanese.moodtracker.model.DailyMood
 
 
-class MoodHistoryRecyclerAdapter() : RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>() {
-    var day = Date()
-    private var dates = arrayOf(convertDate(day), convertDate(day), convertDate(day))
-    private var dailyComments = arrayOf("I just found a job.", "My project works!", null)
-    private var moodImages = intArrayOf(R.mipmap.smiley_sad, R.mipmap.smiley_normal, R.mipmap.smiley_super_happy)
+class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(moodHistoryItemView: View): RecyclerView.ViewHolder(moodHistoryItemView){
@@ -33,22 +29,23 @@ class MoodHistoryRecyclerAdapter() : RecyclerView.Adapter<MoodHistoryRecyclerAda
     }
 
     override fun getItemCount(): Int {
-        return dates.size
+        return dailyMoodList.size
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.historyDateTextView.text = dates[i]
-        viewHolder.historyDescriptionTextView.text = "I'll pass a description here."
+        val currentDailyMood = dailyMoodList[i]
+        viewHolder.historyDateTextView.text = currentDailyMood.mDate[i].toString()
+        viewHolder.historyDescriptionTextView.text = currentDailyMood.mDescription
 
-            if(!dailyComments[i].isNullOrBlank()){
+            if(!currentDailyMood.mComment[i].toString().isNullOrBlank()){
                 viewHolder.historyDescriptionTextView.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_comment_black_48px, 0)
                 viewHolder.historyDescriptionTextView.setOnClickListener { v: View ->
-                    var comment = dailyComments[i].toString()
+                    var comment = currentDailyMood.mComment[i].toString()
                     makeCommentToast(v, comment)
                 }
             }
 
-        viewHolder.historyImageView.setImageResource(moodImages[i])
+        viewHolder.historyImageView.setImageResource(currentDailyMood.mImageId)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
