@@ -18,7 +18,7 @@ class MoodHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mood_history)
 
-        generateSamplyDummyMoodList()
+        //generateSamplyDummyMoodList()
 
         layoutManager = LinearLayoutManager(this)
         mood_history_recycler_view.layoutManager = layoutManager
@@ -28,10 +28,11 @@ class MoodHistoryActivity : AppCompatActivity() {
 
     }
 
+    /* Leave out the dummy data for now.
     //This is a temporary function to generate the sample moods.
     fun generateSamplyDummyMoodList(){
         dailyMoodList.add(DailyMood(getString(R.string.mood_sad), R.mipmap.smiley_sad, R.color.color_sad, "This is hard work.", "5/5/2010"))
 
         dailyMoodList.add(DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, "I am making progress.", "5/9/2010"))
-    }
+    }*/
 }
