@@ -11,7 +11,7 @@ import com.example.tony_albanese.moodtracker.R
 import java.util.*
 
 
-class MoodHistoryRecyclerAdapter : RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>() {
+class MoodHistoryRecyclerAdapter() : RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>() {
     var day = Date()
     private var dates = arrayOf(convertDate(day), convertDate(day), convertDate(day))
     private var dailyComments = arrayOf("I just found a job.", "My project works!", null)
