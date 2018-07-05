@@ -88,10 +88,9 @@ class MainActivity : AppCompatActivity() {
         currentMood = mood
         val dateObject = Date()
         val date: String = convertDate(dateObject)
+        val message: String = "The current mood has been set to: ${currentMood.mDescription}"
 
-        //Create a new DailyMood object and add it to the array.
-        dailyMoodList.add(DailyMood("Hello", R.mipmap.smiley_super_happy, R.color.color_happy,"My comment", date))
-        //TODO: Add Toast and delay so user can't swipe like crazy.
+        createToast(applicationContext, message)
         //TODO: This is where the selected mood should be serialized and saved in SharedPreferences.
     }
 }
