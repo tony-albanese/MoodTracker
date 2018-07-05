@@ -72,6 +72,9 @@ class MainActivity : AppCompatActivity() {
                 .create()
         dialog.show()
        //TODO: Store comment in SharedPreferences.
+        if(dailyComment.isNotEmpty() || dailyComment.isBlank()) {
+            preferences.edit().putString(PREFERENCES_KEY_COMMENT, dailyComment)
+        }
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
