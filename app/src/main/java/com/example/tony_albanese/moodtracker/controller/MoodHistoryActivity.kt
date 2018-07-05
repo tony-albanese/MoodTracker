@@ -12,7 +12,7 @@ class MoodHistoryActivity : AppCompatActivity() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>? = null
-    lateinit var dailyMoodList: ArrayList<DailyMood>;
+    var dailyMoodList = ArrayList<DailyMood>();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
