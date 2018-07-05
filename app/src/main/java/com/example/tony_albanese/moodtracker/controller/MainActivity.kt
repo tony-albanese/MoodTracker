@@ -1,6 +1,8 @@
 package com.example.tony_albanese.moodtracker.controller
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -18,11 +20,17 @@ class MainActivity : AppCompatActivity() {
     private var moodList =  ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
     private var layoutManager: RecyclerView.LayoutManager? = null //Create a reference to the layout manager that will organize the views in the RecyclerAdapter.
     private var adapter: RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>? = null //Create a reference to our custom adapter.
+    var dailyMood: Mood = Mood("I feel happy.", R.mipmap.smiley_happy, R.color.color_happy)
+    lateinit var preferences: SharedPreferences
+    val PREFERENCES_KEY_COMMENT: String = "PREFERENCES_KEY_COMMENT"
+    val PREFERENCES_KEY_IMAGE_ID: String = "PREFERENCES_KEY_IMAGE_ID"
+    var dailyComment: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        preferences = getPreferences(Context.MODE_PRIVATE)
         generateMoodSelectionList() //Function that populates the ArrayList with Mood objects.
 
         layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
@@ -55,20 +63,24 @@ class MainActivity : AppCompatActivity() {
     fun createCommentDialogue(){
         val commentText: EditText = EditText(this)
         //TODO: Format the EditText object
-        //TODO: Add positive button.
         val dialog = AlertDialog.Builder(this)
         dialog.setView(commentText)
         dialog.setTitle("How are you feeling?")
                 .setMessage("Enter a comment.")
                 .setNegativeButton("Cancel",null)
+                .setPositiveButton("OK", {dialog, button -> dailyComment = commentText.text.toString()})
                 .create()
-
         dialog.show()
+       //TODO: Store comment in SharedPreferences.
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood){
-        Toast.makeText(this, "Clicked: ${mood.mDescription }.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Clicked: ${mood.mDescription } with comment ${dailyComment}", Toast.LENGTH_SHORT).show()
+
+        //store the currently clicked moodImageID as the daily mood.
+        preferences.edit().putInt(PREFERENCES_KEY_IMAGE_ID, mood.mImageId).apply()
+
     }
 
 }
