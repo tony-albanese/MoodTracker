@@ -71,12 +71,12 @@ class MainActivity : AppCompatActivity() {
         dialog.setPositiveButton("OK"){
             dialog, button ->
             dailyComment = commentText.text.toString()
+            currentDailyMood.mComment = dailyComment
         }
         dialog.create()
         dialog.show()
         //TODO: Clean the user input before setting it.
-        currentDailyMood.mComment = dailyComment
-        //currentDailyMood.mComment = "Testing Comment"
+        //TODO: Check logic of getting text from user input.
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         foo()
     }
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         //reset the dailyMood object.
         if(currentDailyMood.mDate == convertDate(todaysDate))
         {
-            dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, currentDailyMood.mComment, currentDailyMood.mDate))
+            dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
             //generateDefaultDailyMood()
         }
     }
