@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
     private var adapter: RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>? = null //Create a reference to our custom adapter.
     private var moodList = ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
 
-    
+    private var testlist = ArrayList<Mood>() //This is an array list for test purposes.
+    lateinit private var testDailyMood: DailyMood //This is a DailyMoodObject for test purposes.
 
     lateinit var currentDailyMood: DailyMood
     lateinit var todaysDate: Date
@@ -43,7 +44,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initializeObjects()
-        //loadSharedPreferences()//Load the shared preferences
+        loadSharedPreferences()//Load the shared preferences
+        testSharedPreferences()
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -67,13 +69,10 @@ class MainActivity : AppCompatActivity() {
         dialog.setTitle("How are you feeling?")
                 .setMessage("Enter a comment.")
                 .setNegativeButton("Cancel", null)
-                //.setPositiveButton("OK", {dialog, button -> dailyComment = commentText.text.toString() })
-                //.create()
         dialog.setPositiveButton("OK"){
             dialog, button ->
             dailyComment = commentText.text.toString()
-            foo()
-            //currentDailyMood.mComment = dailyComment
+            //foo()
         }
         dialog.create()
         dialog.show()
@@ -94,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
-        foo()
+        //foo()
     }
 
     //This is the function that generates the moods the user can select.
@@ -151,5 +150,21 @@ class MainActivity : AppCompatActivity() {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
             //generateDefaultDailyMood()
         }
+    }
+
+    //Test shared preferences functions.
+    fun testSharedPreferences(){
+        val testDailyMood = DailyMood(getString(R.string.mood_sad), R.mipmap.smiley_sad, R.color.color_sad, "Comment","Today") //Test object
+        saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, testDailyMood )
+        val data = retrieveDailyMoodStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
+        if(data == "nothing"){
+            generateDefaultDailyMood()
+        } else {
+            var gson = Gson()
+            val loadedDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
+            dailyMoodList.add(loadedDailyMood)
+        }
+
+
     }
 }
