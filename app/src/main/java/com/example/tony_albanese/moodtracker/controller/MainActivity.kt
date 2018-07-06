@@ -63,13 +63,13 @@ class MainActivity : AppCompatActivity() {
         dialog.setTitle("How are you feeling?")
                 .setMessage("Enter a comment.")
                 .setNegativeButton("Cancel", null)
-                .setPositiveButton("OK", { dialog, button -> dailyComment = commentText.text.toString() })
+                .setPositiveButton("OK", {dialog, button -> dailyComment = commentText.text.toString() })
                 .create()
         dialog.show()
 
         //TODO: Clean the user input before setting it.
         currentDailyMood.mComment = dailyComment
-        checkObject()
+
        //TODO: Save the current mood to SharedPreferences.
     }
 
@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         //TODO: Implement logic to update the current mood object.
         //TODO: Save the currentMood object to SharedPreferences.
         createToast(applicationContext, message)
+        currentDailyMood.mDescription = mood.mDescription
     }
 
     //This is the function that generates the moods the user can select.
@@ -103,8 +104,4 @@ class MainActivity : AppCompatActivity() {
         recycler_view.adapter = adapter //Set the adapter property of the recycler_view to the adapter we just created.
     }
 
-    //A temporary function to check on the object state.
-    fun checkObject(){
-        System.out.println(currentDailyMood.toString())
-    }
 }
