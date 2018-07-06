@@ -19,7 +19,9 @@ class MoodHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mood_history)
 
-        moodHistoryList = intent.extras.get(KEY_DAILY_MOOD_LIST) as ArrayList<DailyMood>
+        if(intent.hasExtra(KEY_DAILY_MOOD_LIST)) {
+            moodHistoryList = intent.extras.get(KEY_DAILY_MOOD_LIST) as ArrayList<DailyMood>
+        }
 
         layoutManager = LinearLayoutManager(this)
         mood_history_recycler_view.layoutManager = layoutManager
