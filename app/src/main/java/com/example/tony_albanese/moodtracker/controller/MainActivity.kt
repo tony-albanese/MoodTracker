@@ -59,20 +59,24 @@ class MainActivity : AppCompatActivity() {
 
     //This function creates the dialog.
     fun createCommentDialogue() {
-        val commentText: EditText = EditText(this)
+        var commentText: EditText = EditText(this)
         //TODO: Format the EditText object
-        val dialog = AlertDialog.Builder(this)
+        var dialog = AlertDialog.Builder(this)
         dialog.setView(commentText)
         dialog.setTitle("How are you feeling?")
                 .setMessage("Enter a comment.")
                 .setNegativeButton("Cancel", null)
-                .setPositiveButton("OK", {dialog, button -> dailyComment = commentText.text.toString() })
-                .create()
+                //.setPositiveButton("OK", {dialog, button -> dailyComment = commentText.text.toString() })
+                //.create()
+        dialog.setPositiveButton("OK"){
+            dialog, button ->
+            dailyComment = commentText.text.toString()
+        }
+        dialog.create()
         dialog.show()
-
         //TODO: Clean the user input before setting it.
-        //currentDailyMood.mComment = dailyComment
-        currentDailyMood.mComment = "Testing Comment"
+        currentDailyMood.mComment = dailyComment
+        //currentDailyMood.mComment = "Testing Comment"
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         foo()
     }
