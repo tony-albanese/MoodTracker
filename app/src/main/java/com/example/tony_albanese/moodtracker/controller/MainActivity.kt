@@ -69,13 +69,15 @@ class MainActivity : AppCompatActivity() {
 
         //TODO: Clean the user input before setting it.
         currentDailyMood.mComment = dailyComment
-        //TODO: Implement logic to update the current comment if the user adds a comment.
+        checkObject()
+       //TODO: Save the current mood to SharedPreferences.
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
         var message = "The current mood has been set to: ${mood.mDescription}"
         //TODO: Implement logic to update the current mood object.
+        //TODO: Save the currentMood object to SharedPreferences.
         createToast(applicationContext, message)
     }
 
@@ -99,5 +101,10 @@ class MainActivity : AppCompatActivity() {
         recycler_view.layoutManager = layoutManager //Attach the layout manager to the recycler_view.
         adapter = MoodRecyclerAdapter(moodList, { mood: Mood -> moodItemClicked(mood) }) //Initialize our adapter variable with a MoodReyclerAdapter object. We pass in our data as a paramater.
         recycler_view.adapter = adapter //Set the adapter property of the recycler_view to the adapter we just created.
+    }
+
+    //A temporary function to check on the object state.
+    fun checkObject(){
+        System.out.println(currentDailyMood.toString())
     }
 }
