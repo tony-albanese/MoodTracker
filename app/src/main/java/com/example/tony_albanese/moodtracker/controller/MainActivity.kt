@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private var adapter: RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>? = null //Create a reference to our custom adapter.
     private var moodList = ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
 
+    
+
     lateinit var currentDailyMood: DailyMood
     lateinit var todaysDate: Date
 
@@ -40,7 +42,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         initializeObjects()
         //loadSharedPreferences()//Load the shared preferences
 
@@ -71,14 +72,15 @@ class MainActivity : AppCompatActivity() {
         dialog.setPositiveButton("OK"){
             dialog, button ->
             dailyComment = commentText.text.toString()
-            currentDailyMood.mComment = dailyComment
+            foo()
+            //currentDailyMood.mComment = dailyComment
         }
         dialog.create()
         dialog.show()
         //TODO: Clean the user input before setting it.
         //TODO: Check logic of getting text from user input.
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
-        foo()
+
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
@@ -144,7 +146,7 @@ class MainActivity : AppCompatActivity() {
     fun foo (){
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
-        if(currentDailyMood.mDate == convertDate(todaysDate))
+        if(currentDailyMood.mDate != convertDate(todaysDate))
         {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
             //generateDefaultDailyMood()
