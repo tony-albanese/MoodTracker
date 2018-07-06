@@ -15,6 +15,7 @@ import com.example.tony_albanese.moodtracker.model.DailyMood
 import com.example.tony_albanese.moodtracker.model.Mood
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
             val intent: Intent = Intent(this, MoodHistoryActivity::class.java)
-            //intent.putExtra(KEY_DAILY_MOOD_LIST, testlist as Serializable)
+            intent.putExtra(KEY_DAILY_MOOD_LIST, testlist as Serializable)
             startActivity(intent)
         }
 
@@ -106,5 +107,5 @@ class MainActivity : AppCompatActivity() {
         testlist.add(DailyMood("Mood 1", R.mipmap.smiley_happy, R.color.color_happy, "Comment 1", "Date 1"))
         testlist.add(DailyMood("Mood 2", R.mipmap.smiley_sad, R.color.color_sad, "Comment 2", "Date 2"))
     }
-    
+
 }
