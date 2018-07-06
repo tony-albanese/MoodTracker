@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.DailyMood
 
@@ -40,7 +39,7 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
                 viewHolder.historyDescriptionTextView.setCompoundDrawablesWithIntrinsicBounds(0,0,R.mipmap.ic_comment_black_48px, 0)
                 viewHolder.historyDescriptionTextView.setOnClickListener { v: View ->
                     var comment = currentDailyMood.mComment
-                    makeCommentToast(v, comment)
+                    createToast(v.context, comment)
                 }
             }
 
@@ -52,8 +51,8 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
         return ViewHolder(v)
     }
 
-    fun makeCommentToast(view: View, comment: String){
+    /*fun makeCommentToast(view: View, comment: String){
         val toast = Toast.makeText(view.context, comment, Toast.LENGTH_SHORT)
         toast.show();
-    }
+    } */
 }

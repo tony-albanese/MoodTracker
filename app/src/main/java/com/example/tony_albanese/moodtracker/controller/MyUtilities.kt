@@ -1,9 +1,10 @@
 package com.example.tony_albanese.moodtracker.controller
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.widget.Toast
 import com.example.tony_albanese.moodtracker.model.DailyMood
-import com.example.tony_albanese.moodtracker.model.Mood
+import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -15,11 +16,10 @@ fun convertDate(date: Date): String {
     return dateString
 }
 
-fun saveParametersToSharedPreferences(){
-
-}
-
-fun updateDailyMoodArrayList(list: ArrayList<DailyMood>, newMood: Mood){
+fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences,key: String, dailyMood: DailyMood){
+    val gson: Gson = Gson()
+    val stringedDailyMood: String = gson.toJson(dailyMood)
+    sharedPreferences.edit().putString(key, stringedDailyMood).apply()
 
 }
 
@@ -28,3 +28,5 @@ fun createToast(context: Context, message:String){
     toast.show()
     //TODO: Add some control to prevent the user from clicking like crazy.
 }
+
+//TODO: Create a function to serialize and save the DailyMood ArrayList to SharedPreferences.
