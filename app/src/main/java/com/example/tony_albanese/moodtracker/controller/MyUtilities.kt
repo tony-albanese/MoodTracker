@@ -23,6 +23,16 @@ fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences,key: S
 
 }
 
+fun retrieveDailyMoodStringFromSharedPreferences(preferences: SharedPreferences, key: String): String {
+    var gson = Gson()
+
+    var dailyMoodString: String = preferences.getString(key, "nothing")
+    return dailyMoodString
+}
+
+
+
+
 fun createToast(context: Context, message:String){
    val toast =  Toast.makeText(context, message, Toast.LENGTH_SHORT)
     toast.show()
