@@ -20,39 +20,25 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-    private var moodList = ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
+    lateinit var preferences: SharedPreferences
     private var layoutManager: RecyclerView.LayoutManager? = null //Create a reference to the layout manager that will organize the views in the RecyclerAdapter.
     private var adapter: RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>? = null //Create a reference to our custom adapter.
-    lateinit var preferences: SharedPreferences
+    private var moodList = ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
+
     lateinit var currentDailyMood: DailyMood
     lateinit var todaysDate: Date
-    val PREFERENCES_KEY_DAILY_MOOD: String = "PREFERENCES_KEY_DAILY_MOOD"
-    val KEY_DAILY_MOOD_LIST: String = "DAILY_MOOD_LIST"
-    var dailyComment: String = "No comment"
+
+    var dailyComment: String = ""
     var dailyMoodList = ArrayList<DailyMood>()
 
-    var testlist = ArrayList<DailyMood>() //Testlist to see if problem is with serialization.
-
+    val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD"
+    val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        todaysDate = Date()
-        currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, dailyComment, convertDate(todaysDate))
-        dailyMoodList.add(currentDailyMood)
-
-        preferences = getPreferences(Context.MODE_PRIVATE)
-
-        generateMoodSelectionList() //Function that populates the ArrayList with Mood objects.
-
-        layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
-        recycler_view.layoutManager = layoutManager //Attach the layout manager to the recycler_view.
-        adapter = MoodRecyclerAdapter(moodList, { mood: Mood -> moodItemClicked(mood) }) //Initialize our adapter variable with a MoodReyclerAdapter object. We pass in our data as a paramater.
-        recycler_view.adapter = adapter //Set the adapter property of the recycler_view to the adapter we just created.
-
-        populateTestList()
+        initializeObjects()
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -68,15 +54,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //This is the function that generates the moods the user can select.
-    fun generateMoodSelectionList() {
-        moodList.add(Mood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy))
-        moodList.add(Mood(getString(R.string.mood_super_happy), R.mipmap.smiley_super_happy, R.color.color_super_happy))
-        moodList.add(Mood(getString(R.string.mood_normal), R.mipmap.smiley_normal, R.color.color_normal))
-        moodList.add(Mood(getString(R.string.mood_disappointed), R.mipmap.smiley_disappointed, R.color.color_disappointed))
-        moodList.add(Mood(getString(R.string.mood_sad), R.mipmap.smiley_sad, R.color.color_sad))
-    }
-
     //This function creates the dialog.
     fun createCommentDialogue() {
         val commentText: EditText = EditText(this)
@@ -90,27 +67,37 @@ class MainActivity : AppCompatActivity() {
                 .create()
         dialog.show()
 
+        //TODO: Clean the user input before setting it.
         currentDailyMood.mComment = dailyComment
-        //Just testing an add. This will be moved to its own function later.
-        dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor,dailyComment, "Today"))
-        //TODO: Fix this logic.
+        //TODO: Implement logic to update the current comment if the user adds a comment.
     }
-
 
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
-        var currentMood: Mood = mood
-        var message = "The current mood has been set to: ${currentMood.mDescription}"
-        //TODO: Fix Logic here.
-        //Testing an add. This will be moved to its own function later.
-        dailyMoodList.add(DailyMood(currentMood.mDescription, currentMood.mImageId, currentMood.mBackgoundColor,dailyComment, "Today"))
+        var message = "The current mood has been set to: ${mood.mDescription}"
+        //TODO: Implement logic to update the current mood object.
         createToast(applicationContext, message)
     }
 
-    private fun populateTestList(){
-        testlist.add(DailyMood("Mood 1", R.mipmap.smiley_happy, R.color.color_happy, "Comment 1", "Date 1"))
-        testlist.add(DailyMood("Mood 1", R.mipmap.smiley_happy, R.color.color_happy, "Comment 1", "Date 1"))
-        testlist.add(DailyMood("Mood 2", R.mipmap.smiley_sad, R.color.color_sad, "Comment 2", "Date 2"))
+    //This is the function that generates the moods the user can select.
+    fun generateMoodSelectionList() {
+        moodList.add(Mood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy))
+        moodList.add(Mood(getString(R.string.mood_super_happy), R.mipmap.smiley_super_happy, R.color.color_super_happy))
+        moodList.add(Mood(getString(R.string.mood_normal), R.mipmap.smiley_normal, R.color.color_normal))
+        moodList.add(Mood(getString(R.string.mood_disappointed), R.mipmap.smiley_disappointed, R.color.color_disappointed))
+        moodList.add(Mood(getString(R.string.mood_sad), R.mipmap.smiley_sad, R.color.color_sad))
     }
 
+    fun initializeObjects(){
+        todaysDate = Date()
+        currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, dailyComment, convertDate(todaysDate))
+        dailyMoodList.add(currentDailyMood)
+        preferences = getPreferences(Context.MODE_PRIVATE)
+        generateMoodSelectionList() //Function that populates the ArrayList with Mood objects.
+
+        layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
+        recycler_view.layoutManager = layoutManager //Attach the layout manager to the recycler_view.
+        adapter = MoodRecyclerAdapter(moodList, { mood: Mood -> moodItemClicked(mood) }) //Initialize our adapter variable with a MoodReyclerAdapter object. We pass in our data as a paramater.
+        recycler_view.adapter = adapter //Set the adapter property of the recycler_view to the adapter we just created.
+    }
 }
