@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     var dailyMoodList = ArrayList<DailyMood>()
 
     var testlist = ArrayList<DailyMood>() //Testlist to see if problem is with serialization.
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -55,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
             val intent: Intent = Intent(this, MoodHistoryActivity::class.java)
-            intent.putExtra(KEY_DAILY_MOOD_LIST, testlist as Serializable)
+            intent.putExtra(KEY_DAILY_MOOD_LIST, dailyMoodList as Serializable)
             startActivity(intent)
         }
 
@@ -88,6 +90,9 @@ class MainActivity : AppCompatActivity() {
                 .create()
         dialog.show()
 
+        currentDailyMood.mComment = dailyComment
+        //Just testing an add. This will be moved to its own function later.
+        dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor,dailyComment, "Today"))
         //TODO: Fix this logic.
     }
 
@@ -97,8 +102,8 @@ class MainActivity : AppCompatActivity() {
         var currentMood: Mood = mood
         var message = "The current mood has been set to: ${currentMood.mDescription}"
         //TODO: Fix Logic here.
-
-
+        //Testing an add. This will be moved to its own function later.
+        dailyMoodList.add(DailyMood(currentMood.mDescription, currentMood.mImageId, currentMood.mBackgoundColor,dailyComment, "Today"))
         createToast(applicationContext, message)
     }
 
