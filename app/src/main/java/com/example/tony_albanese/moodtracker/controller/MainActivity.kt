@@ -13,6 +13,7 @@ import android.widget.EditText
 import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.DailyMood
 import com.example.tony_albanese.moodtracker.model.Mood
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import java.io.Serializable
@@ -78,7 +79,6 @@ class MainActivity : AppCompatActivity() {
     private fun moodItemClicked(mood: Mood) {
         var message = "The current mood has been set to: ${mood.mDescription}"
         //TODO: Implement logic to update the current mood object.
-        //TODO: Save the currentMood object to SharedPreferences.
 
         currentDailyMood.mDescription = mood.mDescription
         currentDailyMood.mImageId = mood.mImageId
@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         moodList.add(Mood(getString(R.string.mood_sad), R.mipmap.smiley_sad, R.color.color_sad))
     }
 
+    //This function will initialize the state of the objects.
     fun initializeObjects(){
         todaysDate = Date()
         preferences = getPreferences(Context.MODE_PRIVATE)
@@ -109,22 +110,36 @@ class MainActivity : AppCompatActivity() {
         recycler_view.adapter = adapter //Set the adapter property of the recycler_view to the adapter we just created.
     }
 
+    //This function generates the defaultMood.
     fun generateDefaultDailyMood(){
         val date = Date()
         val comment = ""
         currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, comment, convertDate(date))
     }
 
+    //This function loads the values from SharedPreferences
     fun loadSharedPreferences(){
-        dailyMoodData = getPreferences(Context.MODE_PRIVATE).getString(KEY_DAILY_MOOD, null)
-            if(dailyMoodData == null){
+        dailyMoodData = retrieveDailyMoodStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
+            if(dailyMoodData == "nothing"){
                 generateDefaultDailyMood()
             } else {
-                //TODO Method to inflate currentDailyMood.
+                var gson = Gson()
+                currentDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
             }
         dailyMoodListData = getPreferences(Context.MODE_PRIVATE).getString(KEY_DAILY_MOOD_LIST, null)
             if(dailyMoodListData != null){
                 //TODO: method to inflate moodlist.
             }
+    }
+
+    //Thus function checks current date against the object's date and adds to the list if they don't match.
+    fun foo (){
+        //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
+        //reset the dailyMood object.
+        if(currentDailyMood.mDate != convertDate(todaysDate))
+        {
+            dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, currentDailyMood.mComment, currentDailyMood.mDate))
+            generateDefaultDailyMood()
+        }
     }
 }
