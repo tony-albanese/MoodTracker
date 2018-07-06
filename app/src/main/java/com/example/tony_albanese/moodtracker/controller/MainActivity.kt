@@ -33,12 +33,15 @@ class MainActivity : AppCompatActivity() {
 
     val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD"
     val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
+    lateinit var dailyMoodData: String
+    lateinit var dailyMoodListData: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initializeObjects()
+        loadSharedPreferences()//Load the shared preferences
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -46,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(KEY_DAILY_MOOD_LIST, dailyMoodList as Serializable)
             startActivity(intent)
         }
-
 
         //Set the click listener for the comment fab that will trigger the generation of the dialog.
         root_frame_layout.fab_add_comment.setOnClickListener { v: View ->
@@ -78,8 +80,9 @@ class MainActivity : AppCompatActivity() {
         var message = "The current mood has been set to: ${mood.mDescription}"
         //TODO: Implement logic to update the current mood object.
         //TODO: Save the currentMood object to SharedPreferences.
-        createToast(applicationContext, message)
+
         currentDailyMood.mDescription = mood.mDescription
+        createToast(applicationContext, message)
     }
 
     //This is the function that generates the moods the user can select.
@@ -93,9 +96,8 @@ class MainActivity : AppCompatActivity() {
 
     fun initializeObjects(){
         todaysDate = Date()
-        currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, dailyComment, convertDate(todaysDate))
-        dailyMoodList.add(currentDailyMood)
         preferences = getPreferences(Context.MODE_PRIVATE)
+
         generateMoodSelectionList() //Function that populates the ArrayList with Mood objects.
 
         layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
@@ -104,4 +106,22 @@ class MainActivity : AppCompatActivity() {
         recycler_view.adapter = adapter //Set the adapter property of the recycler_view to the adapter we just created.
     }
 
+    fun generateDefaultDailyMood(){
+        val date = Date()
+        val comment = ""
+        currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, comment, convertDate(date))
+    }
+
+    fun loadSharedPreferences(){
+        dailyMoodData = getPreferences(Context.MODE_PRIVATE).getString(KEY_DAILY_MOOD, null)
+            if(dailyMoodData == null){
+                generateDefaultDailyMood()
+            } else {
+                //TODO Method to inflate currentDailyMood.
+            }
+        dailyMoodListData = getPreferences(Context.MODE_PRIVATE).getString(KEY_DAILY_MOOD_LIST, null)
+            if(dailyMoodListData != null){
+                //TODO: method to inflate moodlist.
+            }
+    }
 }
