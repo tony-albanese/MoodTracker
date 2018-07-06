@@ -24,6 +24,7 @@ class MoodHistoryActivity : AppCompatActivity() {
         layoutManager = LinearLayoutManager(this)
         mood_history_recycler_view.layoutManager = layoutManager
 
+
         adapter = MoodHistoryRecyclerAdapter(moodHistoryList)
         mood_history_recycler_view.adapter = adapter
 
