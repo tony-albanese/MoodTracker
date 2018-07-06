@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initializeObjects()
-        loadSharedPreferences()//Load the shared preferences
+        //loadSharedPreferences()//Load the shared preferences
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -71,8 +71,10 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
 
         //TODO: Clean the user input before setting it.
-        currentDailyMood.mComment = dailyComment
+        //currentDailyMood.mComment = dailyComment
+        currentDailyMood.mComment = "Testing Comment"
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
+        foo()
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
@@ -86,6 +88,7 @@ class MainActivity : AppCompatActivity() {
 
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
+        foo()
     }
 
     //This is the function that generates the moods the user can select.
@@ -103,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         preferences = getPreferences(Context.MODE_PRIVATE)
 
         generateMoodSelectionList() //Function that populates the ArrayList with Mood objects.
+        generateDefaultDailyMood()
 
         layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
         recycler_view.layoutManager = layoutManager //Attach the layout manager to the recycler_view.
@@ -126,8 +130,8 @@ class MainActivity : AppCompatActivity() {
                 var gson = Gson()
                 currentDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
             }
-        dailyMoodListData = getPreferences(Context.MODE_PRIVATE).getString(KEY_DAILY_MOOD_LIST, null)
-            if(dailyMoodListData != null){
+        dailyMoodListData = getPreferences(Context.MODE_PRIVATE).getString(KEY_DAILY_MOOD_LIST, "nothing")
+            if(dailyMoodListData != "nothing"){
                 //TODO: method to inflate moodlist.
             }
     }
@@ -136,10 +140,10 @@ class MainActivity : AppCompatActivity() {
     fun foo (){
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
-        if(currentDailyMood.mDate != convertDate(todaysDate))
+        if(currentDailyMood.mDate == convertDate(todaysDate))
         {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, currentDailyMood.mComment, currentDailyMood.mDate))
-            generateDefaultDailyMood()
+            //generateDefaultDailyMood()
         }
     }
 }
