@@ -71,8 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         //TODO: Clean the user input before setting it.
         currentDailyMood.mComment = dailyComment
-
-       //TODO: Save the current mood to SharedPreferences.
+        saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
@@ -82,6 +81,10 @@ class MainActivity : AppCompatActivity() {
         //TODO: Save the currentMood object to SharedPreferences.
 
         currentDailyMood.mDescription = mood.mDescription
+        currentDailyMood.mImageId = mood.mImageId
+        currentDailyMood.mBackgoundColor = mood.mBackgoundColor
+
+        saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
     }
 
