@@ -36,12 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD"
     val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
+    val KEY_COMMENT: String = "KEY_COMMENT"
     lateinit var dailyMoodData: String
     lateinit var dailyMoodListData: String
-
-    //Need some test variables to play with
-    var testDailyMoodList =  ArrayList<DailyMood>() //This will be populated with dummy data and saved to shared preferences.
-    var testDailyMoodListFromSharedPrefernces = ArrayList<DailyMood>() // This will be the list we restore from daily preferences and pass to the intent to the MoodHistory Activity
 
     //onCreate() function
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,15 +72,15 @@ class MainActivity : AppCompatActivity() {
         dialog.setPositiveButton("OK"){
             dialog, button ->
             dailyComment = commentText.text.toString()
-            //TODO: Uncomment the following line after testing SharedPreferences.
-            //foo()
+            currentDailyMood.mComment = dailyComment
+            foo()
         }
         dialog.create()
         dialog.show()
         //TODO: Clean the user input before setting it.
         //TODO: Check logic of getting text from user input.
+        saveCommentToSharedPrefeences(preferences, KEY_COMMENT, dailyComment)
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
-
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
@@ -96,8 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
-        //TODO: Uncomment this when SavedPreferences testing is done.
-        //foo()
+        foo()
     }
 
     //This is the function that generates the moods the user can select.
@@ -127,23 +123,28 @@ class MainActivity : AppCompatActivity() {
         val date = Date()
         val comment = ""
         currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, comment, convertDate(date))
+        saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
     }
 
     //This function loads the values from SharedPreferences
     fun loadSharedPreferences(){
-        dailyMoodData = retrieveDailyMoodStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
+        dailyMoodData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
             if(dailyMoodData == "nothing"){
                 generateDefaultDailyMood()
             } else {
                 var gson = Gson()
                 currentDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
             }
-        dailyMoodListData = retrieveListStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
+        dailyMoodListData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
             if(dailyMoodListData != "nothing"){
                 var gson = Gson()
                 val type = object : TypeToken<ArrayList<DailyMood>>() {
                 }.type
                 dailyMoodList = gson.fromJson(dailyMoodListData, type)
+            }
+        dailyComment = getStringFromSharedPreferences(preferences, KEY_COMMENT)
+            if(dailyComment == "nothing"){
+                dailyComment = ""
             }
         foo()
     }
@@ -155,23 +156,8 @@ class MainActivity : AppCompatActivity() {
         if(currentDailyMood.mDate != convertDate(todaysDate))
         {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
+            saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
-        }
-    }
-
-    //Function will test writing array to shared preferences.
-    fun testArrayListSharedPreferences(){
-        //Populate the first list.
-        testDailyMoodList.add(DailyMood(getString(R.string.mood_disappointed), R.mipmap.smiley_disappointed, R.color.color_disappointed, "My adapter doesn't work.", "Today"))
-
-        saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, testDailyMoodList)
-        dailyMoodListData = retrieveListStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
-        if(dailyMoodListData != "nothing") {
-            var gson = Gson()
-            val type = object : TypeToken<ArrayList<DailyMood>>() {
-            }.type
-            testDailyMoodListFromSharedPrefernces = gson.fromJson(dailyMoodListData, type)
-            dailyMoodList = testDailyMoodListFromSharedPrefernces
         }
     }
 }

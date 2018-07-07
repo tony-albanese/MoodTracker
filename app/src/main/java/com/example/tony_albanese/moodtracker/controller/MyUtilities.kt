@@ -23,10 +23,13 @@ fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences,key: S
 
 }
 
-fun retrieveDailyMoodStringFromSharedPreferences(preferences: SharedPreferences, key: String): String {
+fun saveCommentToSharedPrefeences(preferences: SharedPreferences, key:String, string: String){
+    preferences.edit().putString(key, string).apply()
+}
 
-    var dailyMoodString: String = preferences.getString(key, "nothing")
-    return dailyMoodString
+fun getStringFromSharedPreferences(preferences: SharedPreferences, key: String): String{
+    var sharedString = preferences.getString(key, "nothing")
+    return sharedString
 }
 
 fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String, array: ArrayList<DailyMood>){
@@ -35,16 +38,8 @@ fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String
     preferences.edit().putString(key, stringedArrayList).apply()
 }
 
-fun retrieveListStringFromSharedPreferences(preferences: SharedPreferences, key: String): String{
-    var arrayString =  preferences.getString(key, "nothing")
-    return arrayString
-}
-
-
 fun createToast(context: Context, message:String){
    val toast =  Toast.makeText(context, message, Toast.LENGTH_SHORT)
     toast.show()
     //TODO: Add some control to prevent the user from clicking like crazy.
 }
-
-//TODO: Create a function to serialize and save the DailyMood ArrayList to SharedPreferences.
