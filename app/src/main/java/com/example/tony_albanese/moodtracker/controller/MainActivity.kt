@@ -26,9 +26,6 @@ class MainActivity : AppCompatActivity() {
     private var adapter: RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>? = null //Create a reference to our custom adapter.
     private var moodList = ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
 
-    private var testlist = ArrayList<Mood>() //This is an array list for test purposes.
-    lateinit private var testDailyMood: DailyMood //This is a DailyMoodObject for test purposes.
-
     lateinit var currentDailyMood: DailyMood
     lateinit var todaysDate: Date
 
@@ -40,12 +37,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var dailyMoodData: String
     lateinit var dailyMoodListData: String
 
+    //onCreate() function
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initializeObjects()
-        loadSharedPreferences()//Load the shared preferences
-        testSharedPreferences()
+        loadSharedPreferences()
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -72,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         dialog.setPositiveButton("OK"){
             dialog, button ->
             dailyComment = commentText.text.toString()
+            //TODO: Uncomment the following line after testing SharedPreferences.
             //foo()
         }
         dialog.create()
@@ -85,7 +83,6 @@ class MainActivity : AppCompatActivity() {
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
         var message = "The current mood has been set to: ${mood.mDescription}"
-        //TODO: Implement logic to update the current mood object.
 
         currentDailyMood.mDescription = mood.mDescription
         currentDailyMood.mImageId = mood.mImageId
@@ -93,6 +90,7 @@ class MainActivity : AppCompatActivity() {
 
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
+        //TODO: Uncomment this when SavedPreferences testing is done.
         //foo()
     }
 
@@ -152,19 +150,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Test shared preferences functions.
-    fun testSharedPreferences(){
-        val testDailyMood = DailyMood(getString(R.string.mood_sad), R.mipmap.smiley_sad, R.color.color_sad, "Comment","Today") //Test object
-        saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, testDailyMood )
-        val data = retrieveDailyMoodStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
-        if(data == "nothing"){
-            generateDefaultDailyMood()
-        } else {
-            var gson = Gson()
-            val loadedDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
-            dailyMoodList.add(loadedDailyMood)
-        }
-
-
-    }
 }
