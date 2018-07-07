@@ -20,8 +20,6 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
-
-
 class MainActivity : AppCompatActivity() {
     lateinit var preferences: SharedPreferences
     private var layoutManager: RecyclerView.LayoutManager? = null //Create a reference to the layout manager that will organize the views in the RecyclerAdapter.
@@ -46,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initializeObjects()
         loadSharedPreferences()
+        foo()
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -122,9 +121,10 @@ class MainActivity : AppCompatActivity() {
     //This function generates the defaultMood.
     fun generateDefaultDailyMood(){
         val date = Date()
-        val comment = ""
-        currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, comment, convertDate(date))
+        dailyComment = String()
+        currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, dailyComment, convertDate(date))
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
+        saveCommentToSharedPrefeences(preferences,KEY_COMMENT, dailyComment)
     }
 
     //This function loads the values from SharedPreferences
@@ -144,9 +144,6 @@ class MainActivity : AppCompatActivity() {
                 dailyMoodList = gson.fromJson(dailyMoodListData, type)
             }
         dailyComment = getStringFromSharedPreferences(preferences, KEY_COMMENT)
-            if(dailyComment == "nothing"){
-                dailyComment = ""
-            }
         foo()
     }
 
@@ -159,9 +156,6 @@ class MainActivity : AppCompatActivity() {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
-            dailyComment = ""
-            saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
-            saveCommentToSharedPrefeences(preferences,KEY_COMMENT, dailyComment)
         }
     }
 }
