@@ -61,9 +61,6 @@ class MainActivity : AppCompatActivity() {
         root_frame_layout.fab_add_comment.setOnClickListener { v: View ->
             createCommentDialogue()
         }
-
-        initializeObjects()
-        testArrayListSharedPreferences()
     }
 
     //This function creates the dialog.
@@ -118,7 +115,6 @@ class MainActivity : AppCompatActivity() {
         preferences = getPreferences(Context.MODE_PRIVATE)
 
         generateMoodSelectionList() //Function that populates the ArrayList with Mood objects.
-        generateDefaultDailyMood()
 
         layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
         recycler_view.layoutManager = layoutManager //Attach the layout manager to the recycler_view.
@@ -142,10 +138,14 @@ class MainActivity : AppCompatActivity() {
                 var gson = Gson()
                 currentDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
             }
-        dailyMoodListData = getPreferences(Context.MODE_PRIVATE).getString(KEY_DAILY_MOOD_LIST, "nothing")
+        dailyMoodListData = retrieveListStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
             if(dailyMoodListData != "nothing"){
-                //TODO: method to inflate moodlist.
+                var gson = Gson()
+                val type = object : TypeToken<ArrayList<DailyMood>>() {
+                }.type
+                dailyMoodList = gson.fromJson(dailyMoodListData, type)
             }
+        foo()
     }
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
@@ -155,12 +155,11 @@ class MainActivity : AppCompatActivity() {
         if(currentDailyMood.mDate != convertDate(todaysDate))
         {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
-            //generateDefaultDailyMood()
+            generateDefaultDailyMood()
         }
     }
 
     //Function will test writing array to shared preferences.
-
     fun testArrayListSharedPreferences(){
         //Populate the first list.
         testDailyMoodList.add(DailyMood(getString(R.string.mood_disappointed), R.mipmap.smiley_disappointed, R.color.color_disappointed, "My adapter doesn't work.", "Today"))
