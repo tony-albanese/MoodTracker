@@ -14,11 +14,13 @@ import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.DailyMood
 import com.example.tony_albanese.moodtracker.model.Mood
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var preferences: SharedPreferences
@@ -36,6 +38,10 @@ class MainActivity : AppCompatActivity() {
     val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
     lateinit var dailyMoodData: String
     lateinit var dailyMoodListData: String
+
+    //Need some test variables to play with
+    var testDailyMoodList =  ArrayList<DailyMood>() //This will be populated with dummy data and saved to shared preferences.
+    var testDailyMoodListFromSharedPrefernces = ArrayList<DailyMood>() // This will be the list we restore from daily preferences and pass to the intent to the MoodHistory Activity
 
     //onCreate() function
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +61,9 @@ class MainActivity : AppCompatActivity() {
         root_frame_layout.fab_add_comment.setOnClickListener { v: View ->
             createCommentDialogue()
         }
+
+        initializeObjects()
+        testArrayListSharedPreferences()
     }
 
     //This function creates the dialog.
@@ -150,4 +159,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Function will test writing array to shared preferences.
+
+    fun testArrayListSharedPreferences(){
+        //Populate the first list.
+        testDailyMoodList.add(DailyMood(getString(R.string.mood_disappointed), R.mipmap.smiley_disappointed, R.color.color_disappointed, "My adapter doesn't work.", "Today"))
+
+        saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, testDailyMoodList)
+        dailyMoodListData = retrieveListStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
+        if(dailyMoodListData != "nothing") {
+            var gson = Gson()
+            val type = object : TypeToken<ArrayList<DailyMood>>() {
+            }.type
+            testDailyMoodListFromSharedPrefernces = gson.fromJson(dailyMoodListData, type)
+            dailyMoodList = testDailyMoodListFromSharedPrefernces
+        }
+    }
 }

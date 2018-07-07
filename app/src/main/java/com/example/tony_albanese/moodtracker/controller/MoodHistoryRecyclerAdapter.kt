@@ -51,8 +51,4 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
         return ViewHolder(v)
     }
 
-    /*fun makeCommentToast(view: View, comment: String){
-        val toast = Toast.makeText(view.context, comment, Toast.LENGTH_SHORT)
-        toast.show();
-    } */
 }

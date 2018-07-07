@@ -24,13 +24,21 @@ fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences,key: S
 }
 
 fun retrieveDailyMoodStringFromSharedPreferences(preferences: SharedPreferences, key: String): String {
-    var gson = Gson()
 
     var dailyMoodString: String = preferences.getString(key, "nothing")
     return dailyMoodString
 }
 
+fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String, array: ArrayList<DailyMood>){
+    var gson = Gson()
+    var stringedArrayList = gson.toJson(array)
+    preferences.edit().putString(key, stringedArrayList).apply()
+}
 
+fun retrieveListStringFromSharedPreferences(preferences: SharedPreferences, key: String): String{
+    var arrayString =  preferences.getString(key, "nothing")
+    return arrayString
+}
 
 
 fun createToast(context: Context, message:String){
