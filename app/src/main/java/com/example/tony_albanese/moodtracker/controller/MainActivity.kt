@@ -160,6 +160,8 @@ class MainActivity : AppCompatActivity() {
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
             dailyComment = ""
+            saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
+            saveCommentToSharedPrefeences(preferences,KEY_COMMENT, dailyComment)
         }
     }
 }
