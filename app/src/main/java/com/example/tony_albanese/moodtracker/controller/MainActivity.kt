@@ -73,14 +73,15 @@ class MainActivity : AppCompatActivity() {
             dialog, button ->
             dailyComment = commentText.text.toString()
             currentDailyMood.mComment = dailyComment
+            saveCommentToSharedPrefeences(preferences, KEY_COMMENT, dailyComment)
+            saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
             foo()
         }
         dialog.create()
         dialog.show()
         //TODO: Clean the user input before setting it.
         //TODO: Check logic of getting text from user input.
-        saveCommentToSharedPrefeences(preferences, KEY_COMMENT, dailyComment)
-        saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
+
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
@@ -158,6 +159,7 @@ class MainActivity : AppCompatActivity() {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
+            dailyComment = ""
         }
     }
 }
