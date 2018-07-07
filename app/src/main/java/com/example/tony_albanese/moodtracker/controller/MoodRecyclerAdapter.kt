@@ -1,5 +1,7 @@
 package com.example.tony_albanese.moodtracker.controller
 
+import android.support.v4.content.ContextCompat.getColor
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -18,11 +20,13 @@ class MoodRecyclerAdapter(val moodList: ArrayList<Mood>, val clickListener: (Moo
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageItem: ImageView
         var itemText: TextView
+        var cardView: CardView = itemView.findViewById(R.id.card_view_layout)
 
         init {
             imageItem = itemView.findViewById(R.id.card_mood_image)
             itemText = itemView.findViewById(R.id.card_mood_text)
         }
+
 
     }
 
@@ -44,6 +48,8 @@ class MoodRecyclerAdapter(val moodList: ArrayList<Mood>, val clickListener: (Moo
         viewHolder.imageItem.setImageResource(mood.mImageId)
         viewHolder.imageItem.setBackgroundResource(mood.mBackgoundColor)
         viewHolder.imageItem.setOnClickListener {clickListener(mood)}
+        val color = getColor(viewHolder.cardView.context, mood.mBackgoundColor)
+        viewHolder.cardView.setCardBackgroundColor(color)
     }
 
 
