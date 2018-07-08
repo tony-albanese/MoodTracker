@@ -69,19 +69,33 @@ class MainActivity : AppCompatActivity() {
     //onRestart()
     //TODO: Delete commented out code.
     override fun onRestart() {
-        //System.out.println("onRestart() called")
-        loadSharedPreferences()
-        foo()
+        System.out.println("onRestart() called")
+        //loadSharedPreferences()
+        //foo()
         super.onRestart()
     }
 
     override fun onResume() {
-        //System.out.println("onResurme called")
-        loadSharedPreferences()
-        foo()
+        System.out.println("onResume called")
+        //loadSharedPreferences()
+        //foo()
         super.onResume()
     }
 
+    override fun onStop() {
+        System.out.println("onStop() called")
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        System.out.println("onDestroy() called")
+        super.onDestroy()
+    }
+
+    override fun onStart() {
+        System.out.println("onStart() called")
+        super.onStart()
+    }
     //Create the menu for the Activity.
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater: MenuInflater = getMenuInflater()
