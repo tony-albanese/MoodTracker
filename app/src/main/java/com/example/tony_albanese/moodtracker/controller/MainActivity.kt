@@ -9,8 +9,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.EditText
 import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.DailyMood
@@ -65,6 +64,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Create the menu for the Activity.
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var inflater: MenuInflater = getMenuInflater()
+        inflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.getItemId()){
+            R.id.menu_item_share_mood -> {
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+
+    }
     //This function will help disable touch events so the user can't click like crazy.
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         return (enableTouchEvents && super.dispatchTouchEvent(ev))
@@ -198,4 +213,5 @@ class MainActivity : AppCompatActivity() {
             index = dailyMoodList.size
         }
     }
+
 }
