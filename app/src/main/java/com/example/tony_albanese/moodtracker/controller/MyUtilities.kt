@@ -41,5 +41,4 @@ fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String
 fun createToast(context: Context, message:String){
    val toast =  Toast.makeText(context, message, Toast.LENGTH_SHORT)
     toast.show()
-    //TODO: Add some control to prevent the user from clicking like crazy.
 }
