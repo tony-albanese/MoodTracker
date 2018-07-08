@@ -76,8 +76,10 @@ class MainActivity : AppCompatActivity() {
         when(item?.getItemId()){
             R.id.menu_item_share_mood -> {
                 var intent = Intent(Intent.ACTION_SEND)
+                var sharedText = "Hi! ${currentDailyMood.mDescription} ${currentDailyMood.mComment}"
+                sharedText.trim()
                 intent.setType("text/html")
-                intent.putExtra(Intent.EXTRA_TEXT, currentDailyMood.mDescription)
+                intent.putExtra(Intent.EXTRA_TEXT, sharedText)
                 startActivity(Intent.createChooser(intent, "Share using: "))
                 return true
             }
