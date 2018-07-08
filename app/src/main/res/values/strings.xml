@@ -6,4 +6,5 @@
     <string name="mood_normal">I feel OK.</string>
     <string name="mood_disappointed">I feel disappointed.</string>
     <string name="mood_sad">I feel sad.</string>
+    <string name="share">Share Mood</string>
 </resources>
