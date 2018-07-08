@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     var dailyMoodList = ArrayList<DailyMood>()
     val MAX_HISTORY_SIZE = 7;
     var enableTouchEvents: Boolean = true
+    var gson: Gson = Gson()
 
     val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD"
     val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
@@ -69,6 +70,26 @@ class MainActivity : AppCompatActivity() {
         return (enableTouchEvents && super.dispatchTouchEvent(ev))
     }
 
+    //Function to save instance data if the device is rotated.
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState?.putString(KEY_COMMENT, dailyComment)
+        outState?.putString(KEY_DAILY_MOOD, gson.toJson(currentDailyMood))
+        outState?.putString(KEY_DAILY_MOOD_LIST, gson.toJson(dailyMoodList))
+        super.onSaveInstanceState(outState)
+    }
+
+    //Restores data from the Bundle.
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val moodString = savedInstanceState?.getString(KEY_DAILY_MOOD)
+        currentDailyMood = gson.fromJson(moodString, DailyMood::class.java)
+        val listString = savedInstanceState?.getString(KEY_DAILY_MOOD_LIST)
+
+        dailyComment = savedInstanceState!!.getString(KEY_COMMENT)
+        val type = object: TypeToken<ArrayList<DailyMood>>(){}.type
+        dailyMoodList = gson.fromJson(listString, type)
+
+    }
     //This function creates the dialog.
     fun createCommentDialogue() {
         var commentText: EditText = EditText(this)

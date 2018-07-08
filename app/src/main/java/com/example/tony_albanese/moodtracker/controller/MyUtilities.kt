@@ -20,7 +20,6 @@ fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences,key: S
     val gson: Gson = Gson()
     val stringedDailyMood: String = gson.toJson(dailyMood)
     sharedPreferences.edit().putString(key, stringedDailyMood).apply()
-
 }
 
 fun saveCommentToSharedPrefeences(preferences: SharedPreferences, key:String, string: String){
