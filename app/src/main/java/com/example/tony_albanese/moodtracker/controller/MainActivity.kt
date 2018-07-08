@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     //onCreate() function
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        System.out.println("onCreate()")
         setContentView(R.layout.activity_main)
         initializeObjects()
         loadSharedPreferences()
@@ -66,18 +67,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     //onRestart()
-    //TODO: Check when onRestart() is called.
-    //TODO: Implement onDestroy() and onStart()
+    //TODO: Delete commented out code.
     override fun onRestart() {
-        super.onRestart()
+        //System.out.println("onRestart() called")
         loadSharedPreferences()
         foo()
+        super.onRestart()
     }
 
     override fun onResume() {
-        super.onResume()
+        //System.out.println("onResurme called")
         loadSharedPreferences()
         foo()
+        super.onResume()
     }
 
     //Create the menu for the Activity.
