@@ -6,5 +6,10 @@
         android:title="@string/share"
         app:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/menu_item_delete_history"
+        android:icon="@drawable/ic_action_delete"
+        app:showAsAction="ifRoom"
+        android:title="@string/clear_history"
+        />
 
 </menu>

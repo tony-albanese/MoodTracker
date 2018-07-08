@@ -7,4 +7,5 @@
     <string name="mood_disappointed">I feel disappointed.</string>
     <string name="mood_sad">I feel sad.</string>
     <string name="share">Share Mood</string>
+    <string name="clear_history">Clear History</string>
 </resources>

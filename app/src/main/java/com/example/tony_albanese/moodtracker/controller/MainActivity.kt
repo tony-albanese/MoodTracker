@@ -83,6 +83,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent.createChooser(intent, "Share using: "))
                 return true
             }
+            R.id.menu_item_delete_history -> {
+                dailyMoodList.clear()
+                saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
 
