@@ -1,5 +1,7 @@
 package com.example.tony_albanese.moodtracker.controller
 
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.DailyMood
+import kotlinx.android.synthetic.main.mood_history_card_layout.view.*
 
 
 class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>() {
@@ -19,11 +22,12 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
         var historyDateTextView : TextView
         var historyImageView : ImageView
         var historyDescriptionTextView: TextView
-
+        var cardView: CardView
         init {
             historyDateTextView = moodHistoryItemView.findViewById(R.id.mood_history_date)
             historyImageView = moodHistoryItemView.findViewById(R.id.mood_history_image)
             historyDescriptionTextView = moodHistoryItemView.findViewById(R.id.mood_history_description)
+            cardView = moodHistoryItemView.mood_history_card_view
         }
     }
 
@@ -44,6 +48,8 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
             }
 
         viewHolder.historyImageView.setImageResource(currentDailyMood.mImageId)
+        var color = ContextCompat.getColor(viewHolder.cardView.context, currentDailyMood.mBackgoundColor)
+        viewHolder.cardView.setCardBackgroundColor(color)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
