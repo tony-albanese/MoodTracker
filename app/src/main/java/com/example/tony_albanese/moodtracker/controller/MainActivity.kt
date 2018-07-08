@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
+            foo()
             val intent: Intent = Intent(this, MoodHistoryActivity::class.java)
             intent.putExtra(KEY_DAILY_MOOD_LIST, dailyMoodList as Serializable)
             startActivity(intent)
@@ -62,6 +63,13 @@ class MainActivity : AppCompatActivity() {
         root_frame_layout.fab_add_comment.setOnClickListener { v: View ->
             createCommentDialogue()
         }
+    }
+
+    //onRestart()
+    override fun onRestart() {
+        super.onRestart()
+        loadSharedPreferences()
+        foo()
     }
 
     //Create the menu for the Activity.
@@ -202,7 +210,6 @@ class MainActivity : AppCompatActivity() {
                 dailyMoodList = gson.fromJson(dailyMoodListData, type)
             }
         dailyComment = getStringFromSharedPreferences(preferences, KEY_COMMENT)
-        foo()
     }
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
