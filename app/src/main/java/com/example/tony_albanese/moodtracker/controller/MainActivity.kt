@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import com.example.tony_albanese.moodtracker.R
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     var dailyComment: String = ""
     var dailyMoodList = ArrayList<DailyMood>()
     val MAX_HISTORY_SIZE = 7;
+    var enableTouchEvents: Boolean = true
 
     val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD"
     val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
@@ -61,6 +64,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //This function will help disable touch events so the user can't click like crazy.
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return (enableTouchEvents && super.dispatchTouchEvent(ev))
+    }
+
     //This function creates the dialog.
     fun createCommentDialogue() {
         var commentText: EditText = EditText(this)
@@ -85,15 +93,19 @@ class MainActivity : AppCompatActivity() {
 
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
-        var message = "The current mood has been set to: ${mood.mDescription}"
+        enableTouchEvents = false
+        Handler().postDelayed({
+            foo()
+            enableTouchEvents = true
+        }, 2000) // LENGTH_SHORT is usually 2 second long
 
+        var message = "The current mood has been set to: ${mood.mDescription}"
         currentDailyMood.mDescription = mood.mDescription
         currentDailyMood.mImageId = mood.mImageId
         currentDailyMood.mBackgoundColor = mood.mBackgoundColor
-
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
-        foo()
+
     }
 
     //This is the function that generates the moods the user can select.
@@ -109,7 +121,6 @@ class MainActivity : AppCompatActivity() {
     fun initializeObjects(){
         todaysDate = Date()
         preferences = getPreferences(Context.MODE_PRIVATE)
-
         generateMoodSelectionList() //Function that populates the ArrayList with Mood objects.
 
         layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
