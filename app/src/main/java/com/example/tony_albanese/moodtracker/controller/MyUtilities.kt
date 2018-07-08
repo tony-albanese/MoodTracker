@@ -1,6 +1,7 @@
 package com.example.tony_albanese.moodtracker.controller
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.widget.Toast
 import com.example.tony_albanese.moodtracker.model.DailyMood
@@ -40,4 +41,11 @@ fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String
 fun createToast(context: Context, message:String){
    val toast =  Toast.makeText(context, message, Toast.LENGTH_SHORT)
     toast.show()
+}
+
+fun shareMood(description: String, context: Context){
+    var intent = Intent(Intent.ACTION_SEND)
+    intent.setType("text/html")
+    intent.putExtra(Intent.EXTRA_TEXT, description)
+    context.startActivity(Intent.createChooser(intent, "Share using: "))
 }
