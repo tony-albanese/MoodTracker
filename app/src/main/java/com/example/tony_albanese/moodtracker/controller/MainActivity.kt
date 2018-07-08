@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
     //This function creates the dialog.
     fun createCommentDialogue() {
         var commentText: EditText = EditText(this)
-        //TODO: Format the EditText object
         var dialog = AlertDialog.Builder(this)
         dialog.setView(commentText)
         dialog.setTitle("How are you feeling?")
@@ -73,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         dialog.setPositiveButton("OK"){
             dialog, button ->
             dailyComment = commentText.text.toString()
+            dailyComment.trim()
             currentDailyMood.mComment = dailyComment
             saveCommentToSharedPrefeences(preferences, KEY_COMMENT, dailyComment)
             saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         }
         dialog.create()
         dialog.show()
-        //TODO: Clean the user input before setting it.
+
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
