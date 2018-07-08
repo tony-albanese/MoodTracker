@@ -15,6 +15,12 @@
         <item name="android:layout_margin">5dp</item>
         <item name="cardUseCompatPadding">true</item>
         <item name="cardPreventCornerOverlap">true</item>
+        <item name="android:padding">10dp</item>
     </style>
 
+    <style name="mood_history_text_style">
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 </resources>

@@ -22,7 +22,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Date"
-            android:textSize="20sp"/>
+            style="@style/mood_history_text_style"/>
 
         <ImageView
             android:id="@+id/mood_history_image"
@@ -52,7 +52,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
-            android:textSize="18sp"
+            style="@style/mood_history_text_style"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/mood_history_date"
