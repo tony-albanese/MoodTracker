@@ -86,10 +86,11 @@ class MainActivity : AppCompatActivity() {
         val listString = savedInstanceState?.getString(KEY_DAILY_MOOD_LIST)
 
         dailyComment = savedInstanceState!!.getString(KEY_COMMENT)
-        val type = object: TypeToken<ArrayList<DailyMood>>(){}.type
+        val type = object : TypeToken<ArrayList<DailyMood>>() {}.type
         dailyMoodList = gson.fromJson(listString, type)
 
     }
+
     //This function creates the dialog.
     fun createCommentDialogue() {
         var commentText: EditText = EditText(this)
@@ -193,9 +194,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Function limits the array size to 7 entries.
-    fun checkArraySize(){
+    fun checkArraySize() {
         var index: Int = dailyMoodList.size
-        while(index > MAX_HISTORY_SIZE){
+        while (index > MAX_HISTORY_SIZE) {
             dailyMoodList.removeAt(0)
             index = dailyMoodList.size
         }
