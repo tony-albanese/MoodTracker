@@ -171,6 +171,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Function limits the array size to 7 entries.
     fun checkArraySize(){
         var index: Int = dailyMoodList.size
         while(index > MAX_HISTORY_SIZE){
