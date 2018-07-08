@@ -75,7 +75,10 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.getItemId()){
             R.id.menu_item_share_mood -> {
-                shareMood(currentDailyMood.mDescription, applicationContext)
+                var intent = Intent(Intent.ACTION_SEND)
+                intent.setType("text/html")
+                intent.putExtra(Intent.EXTRA_TEXT, currentDailyMood.mDescription)
+                startActivity(Intent.createChooser(intent, "Share using: "))
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
