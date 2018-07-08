@@ -71,15 +71,18 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    //Handles the action when the user clicks on Menu option.
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.getItemId()){
             R.id.menu_item_share_mood -> {
+                shareMood(currentDailyMood.mDescription, applicationContext)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
         }
 
     }
+
     //This function will help disable touch events so the user can't click like crazy.
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         return (enableTouchEvents && super.dispatchTouchEvent(ev))
@@ -213,5 +216,4 @@ class MainActivity : AppCompatActivity() {
             index = dailyMoodList.size
         }
     }
-
 }
