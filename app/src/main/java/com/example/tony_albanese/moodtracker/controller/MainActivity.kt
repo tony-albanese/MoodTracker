@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         dialog.create()
         dialog.show()
         //TODO: Clean the user input before setting it.
-        //TODO: Check logic of getting text from user input.
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
