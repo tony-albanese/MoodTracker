@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
+
 class MainActivity : AppCompatActivity() {
     lateinit var preferences: SharedPreferences
     private var layoutManager: RecyclerView.LayoutManager? = null //Create a reference to the layout manager that will organize the views in the RecyclerAdapter.
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     var dailyComment: String = ""
     var dailyMoodList = ArrayList<DailyMood>()
+    val MAX_HISTORY_SIZE = 7;
 
     val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD"
     val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
@@ -80,7 +82,6 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
         //TODO: Clean the user input before setting it.
         //TODO: Check logic of getting text from user input.
-
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
@@ -154,8 +155,17 @@ class MainActivity : AppCompatActivity() {
         if(currentDailyMood.mDate != convertDate(todaysDate))
         {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
+            checkArraySize()
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
+        }
+    }
+
+    fun checkArraySize(){
+        var index: Int = dailyMoodList.size
+        while(index > MAX_HISTORY_SIZE){
+            dailyMoodList.removeAt(0)
+            index = dailyMoodList.size
         }
     }
 }
