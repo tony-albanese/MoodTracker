@@ -88,7 +88,6 @@ class MainActivity : AppCompatActivity() {
         dailyComment = savedInstanceState!!.getString(KEY_COMMENT)
         val type = object : TypeToken<ArrayList<DailyMood>>() {}.type
         dailyMoodList = gson.fromJson(listString, type)
-
     }
 
     //This function creates the dialog.
@@ -110,7 +109,6 @@ class MainActivity : AppCompatActivity() {
         }
         dialog.create()
         dialog.show()
-
     }
 
     //This is the function we want called when the user clicks on a mood in the list.
@@ -127,7 +125,6 @@ class MainActivity : AppCompatActivity() {
         currentDailyMood.mBackgoundColor = mood.mBackgoundColor
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
-
     }
 
     //This is the function that generates the moods the user can select.
