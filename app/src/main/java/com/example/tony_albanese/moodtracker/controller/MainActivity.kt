@@ -66,8 +66,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     //onRestart()
+    //TODO: Check when onRestart() is called.
+    //TODO: Implement onDestroy() and onStart()
     override fun onRestart() {
         super.onRestart()
+        loadSharedPreferences()
+        foo()
+    }
+
+    override fun onResume() {
+        super.onResume()
         loadSharedPreferences()
         foo()
     }
