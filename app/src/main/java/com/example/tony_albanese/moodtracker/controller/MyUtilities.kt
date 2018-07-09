@@ -16,29 +16,29 @@ fun convertDate(date: Date): String {
     return dateString
 }
 
-fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences,key: String, dailyMood: DailyMood){
+fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences, key: String, dailyMood: DailyMood) {
     val gson: Gson = Gson()
     val stringedDailyMood: String = gson.toJson(dailyMood)
     sharedPreferences.edit().putString(key, stringedDailyMood).apply()
 }
 
-fun saveCommentToSharedPrefeences(preferences: SharedPreferences, key:String, string: String){
+fun saveCommentToSharedPrefeences(preferences: SharedPreferences, key: String, string: String) {
     preferences.edit().putString(key, string).apply()
 }
 
-fun getStringFromSharedPreferences(preferences: SharedPreferences, key: String): String{
+fun getStringFromSharedPreferences(preferences: SharedPreferences, key: String): String {
     //TODO: Change this to null and make it safe.
     var sharedString = preferences.getString(key, "nothing")
     return sharedString
 }
 
-fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String, array: ArrayList<DailyMood>){
+fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String, array: ArrayList<DailyMood>) {
     var gson = Gson()
     var stringedArrayList = gson.toJson(array)
     preferences.edit().putString(key, stringedArrayList).apply()
 }
 
-fun createToast(context: Context, message:String){
-   val toast =  Toast.makeText(context, message, Toast.LENGTH_SHORT)
+fun createToast(context: Context, message: String) {
+    val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
     toast.show()
 }

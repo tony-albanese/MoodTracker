@@ -19,7 +19,7 @@ class MoodHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mood_history)
 
-        if(intent.hasExtra(KEY_DAILY_MOOD_LIST)) {
+        if (intent.hasExtra(KEY_DAILY_MOOD_LIST)) {
             moodHistoryList = intent.extras.get(KEY_DAILY_MOOD_LIST) as ArrayList<DailyMood>
         }
 
@@ -31,6 +31,4 @@ class MoodHistoryActivity : AppCompatActivity() {
         mood_history_recycler_view.adapter = adapter
 
     }
-
-
 }

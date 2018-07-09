@@ -46,12 +46,10 @@ class MoodRecyclerAdapter(val moodList: ArrayList<Mood>, val clickListener: (Moo
         val mood = moodList[i]
         viewHolder.itemText.text = mood.mDescription
         viewHolder.imageItem.setImageResource(mood.mImageId)
-        viewHolder.imageItem.setOnClickListener {clickListener(mood)}
+        viewHolder.imageItem.setOnClickListener { clickListener(mood) }
         val color = getColor(viewHolder.cardView.context, mood.mBackgoundColor)
         viewHolder.cardView.setCardBackgroundColor(color)
     }
-
-
 
 
 }

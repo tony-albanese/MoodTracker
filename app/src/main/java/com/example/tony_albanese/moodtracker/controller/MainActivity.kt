@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood) //Save current mood whenever the activity is paused.
         super.onPause()
     }
+
     override fun onRestart() {
         System.out.println("onRestart() called")
         loadDailyMood() // Load here. Needs to be loaded before user interacts with MainActivity.
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         foo()
         super.onRestart()
     }
+
     override fun onResume() {
         //super.onResume()
         System.out.println("onResume called")
@@ -94,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 
     //Handles the action when the user clicks on Menu option.
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.getItemId()){
+        when (item?.getItemId()) {
             R.id.menu_item_share_mood -> {
                 var intent = Intent(Intent.ACTION_SEND)
                 var sharedText = "Hi! ${currentDailyMood.mDescription} ${currentDailyMood.mComment}"
@@ -118,7 +120,7 @@ class MainActivity : AppCompatActivity() {
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         return (enableTouchEvents && super.dispatchTouchEvent(ev))
     }
-    
+
     //This function creates the dialog.
     fun createCommentDialogue() {
         foo()
@@ -128,8 +130,7 @@ class MainActivity : AppCompatActivity() {
         dialog.setTitle("How are you feeling?")
                 .setMessage("Enter a comment.")
                 .setNegativeButton("Cancel", null)
-        dialog.setPositiveButton("OK"){
-            dialog, button ->
+        dialog.setPositiveButton("OK") { dialog, button ->
             dailyComment = commentText.text.toString()
             dailyComment.trim()
             currentDailyMood.mComment = dailyComment
@@ -157,7 +158,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //This function will initialize the state of the objects.
-    fun initializeObjects(){
+    fun initializeObjects() {
         preferences = getPreferences(Context.MODE_PRIVATE)
         generateMoodSelectionList() //Function that populates the ArrayList with Mood objects.
         layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
@@ -169,7 +170,7 @@ class MainActivity : AppCompatActivity() {
     //Function loads moodList
     fun loadMoodList() {
         dailyMoodListData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
-        if(dailyMoodListData != "nothing"){
+        if (dailyMoodListData != "nothing") {
             var gson = Gson()
             val type = object : TypeToken<ArrayList<DailyMood>>() {
             }.type
@@ -177,9 +178,9 @@ class MainActivity : AppCompatActivity() {
         } else dailyMoodList = ArrayList() //Reinitialize if there is nothing loaded.
     }
 
-    fun loadDailyMood(){
+    fun loadDailyMood() {
         dailyMoodData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
-        if(dailyMoodData == "nothing"){
+        if (dailyMoodData == "nothing") {
             generateDefaultDailyMood() //ensures that a default mood is made if none is saved.
         } else {
             var gson = Gson()
@@ -187,18 +188,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun loadComment(){
+    fun loadComment() {
         dailyComment = getStringFromSharedPreferences(preferences, KEY_COMMENT)
     }
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
-    fun foo (){
+    fun foo() {
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
         val date = Date()
         val todaysDate = convertDate(date)
-        if(currentDailyMood.mDate != todaysDate)
-        {
+        if (currentDailyMood.mDate != todaysDate) {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
             checkArraySize()
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
@@ -223,12 +223,13 @@ class MainActivity : AppCompatActivity() {
         moodList.add(Mood(getString(R.string.mood_disappointed), R.mipmap.smiley_disappointed, R.color.color_disappointed))
         moodList.add(Mood(getString(R.string.mood_sad), R.mipmap.smiley_sad, R.color.color_sad))
     }
+
     //This function generates the defaultMood.
-    fun generateDefaultDailyMood(){
+    fun generateDefaultDailyMood() {
         val date = Date()
         dailyComment = ""
         currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, dailyComment, convertDate(date))
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
-        saveCommentToSharedPrefeences(preferences,KEY_COMMENT, dailyComment)
+        saveCommentToSharedPrefeences(preferences, KEY_COMMENT, dailyComment)
     }
 }
