@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
-            foo()
             val intent: Intent = Intent(this, MoodHistoryActivity::class.java)
             intent.putExtra(KEY_DAILY_MOOD_LIST, dailyMoodList as Serializable)
             startActivity(intent)
@@ -70,15 +69,16 @@ class MainActivity : AppCompatActivity() {
     //TODO: Delete commented out code.
     override fun onRestart() {
         System.out.println("onRestart() called")
-        //loadSharedPreferences()
-        //foo()
+        loadSharedPreferences()
+        foo()
         super.onRestart()
     }
 
     override fun onResume() {
+        //super.onResume()
         System.out.println("onResume called")
-        //loadSharedPreferences()
-        //foo()
+        loadSharedPreferences()
+        foo()
         super.onResume()
     }
 
@@ -130,6 +130,7 @@ class MainActivity : AppCompatActivity() {
         return (enableTouchEvents && super.dispatchTouchEvent(ev))
     }
 
+    /*
     //Function to save instance data if the device is rotated.
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.putString(KEY_COMMENT, dailyComment)
@@ -149,6 +150,7 @@ class MainActivity : AppCompatActivity() {
         val type = object : TypeToken<ArrayList<DailyMood>>() {}.type
         dailyMoodList = gson.fromJson(listString, type)
     }
+    */
 
     //This function creates the dialog.
     fun createCommentDialogue() {
@@ -165,7 +167,6 @@ class MainActivity : AppCompatActivity() {
             currentDailyMood.mComment = dailyComment
             saveCommentToSharedPrefeences(preferences, KEY_COMMENT, dailyComment)
             saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
-            foo()
         }
         dialog.create()
         dialog.show()
@@ -175,7 +176,6 @@ class MainActivity : AppCompatActivity() {
     private fun moodItemClicked(mood: Mood) {
         enableTouchEvents = false
         Handler().postDelayed({
-            foo()
             enableTouchEvents = true
         }, 2000) // LENGTH_SHORT is usually 2 second long
 
