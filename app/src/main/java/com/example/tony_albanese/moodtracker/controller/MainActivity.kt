@@ -29,13 +29,11 @@ class MainActivity : AppCompatActivity() {
     private var moodList = ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
 
     lateinit var currentDailyMood: DailyMood
-    lateinit var todaysDate: Date
 
     var dailyComment: String = ""
     var dailyMoodList = ArrayList<DailyMood>()
     val MAX_HISTORY_SIZE = 7;
     var enableTouchEvents: Boolean = true
-    var gson: Gson = Gson()
 
     val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD"
     val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
@@ -176,10 +174,8 @@ class MainActivity : AppCompatActivity() {
 
     //This function will initialize the state of the objects.
     fun initializeObjects(){
-        todaysDate = Date()
         preferences = getPreferences(Context.MODE_PRIVATE)
         generateMoodSelectionList() //Function that populates the ArrayList with Mood objects.
-
         layoutManager = LinearLayoutManager(this) //Our layoutManager holds an instance of a LinearLayoutManager
         recycler_view.layoutManager = layoutManager //Attach the layout manager to the recycler_view.
         adapter = MoodRecyclerAdapter(moodList, { mood: Mood -> moodItemClicked(mood) }) //Initialize our adapter variable with a MoodReyclerAdapter object. We pass in our data as a paramater.
@@ -215,7 +211,9 @@ class MainActivity : AppCompatActivity() {
     fun foo (){
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
-        if(currentDailyMood.mDate != convertDate(todaysDate))
+        val date = Date()
+        val todaysDate = convertDate(date)
+        if(currentDailyMood.mDate != todaysDate)
         {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
             checkArraySize()
