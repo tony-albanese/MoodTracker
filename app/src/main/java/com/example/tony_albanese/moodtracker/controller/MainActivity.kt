@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         initializeObjects()
         loadMoodList()
         loadDailyMood()
+        loadComment()
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
