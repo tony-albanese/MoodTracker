@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initializeObjects()
         loadMoodList()
+        loadDailyMood()
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -64,13 +65,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //onRestart()
-    //TODO: Delete commented out code.
+    override fun onPause() {
+        saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood) //Save current mood whenever the activity is paused.
+        super.onPause()
+    }
     override fun onRestart() {
         System.out.println("onRestart() called")
+        loadDailyMood() // Load here. Needs to be loaded before user interacts with MainActivity.
+        loadComment() //Load here before user can interact with Activity.
         super.onRestart()
     }
-
     override fun onResume() {
         //super.onResume()
         System.out.println("onResume called")
@@ -195,7 +199,7 @@ class MainActivity : AppCompatActivity() {
     fun loadDailyMood(){
         dailyMoodData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
         if(dailyMoodData == "nothing"){
-            generateDefaultDailyMood()
+            generateDefaultDailyMood() //ensures that a default mood is made if none is saved.
         } else {
             var gson = Gson()
             currentDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
@@ -239,7 +243,7 @@ class MainActivity : AppCompatActivity() {
     //This function generates the defaultMood.
     fun generateDefaultDailyMood(){
         val date = Date()
-        dailyComment = String()
+        dailyComment = ""
         currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, dailyComment, convertDate(date))
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         saveCommentToSharedPrefeences(preferences,KEY_COMMENT, dailyComment)
