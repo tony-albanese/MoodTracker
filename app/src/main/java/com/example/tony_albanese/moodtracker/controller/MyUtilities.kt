@@ -27,6 +27,7 @@ fun saveCommentToSharedPrefeences(preferences: SharedPreferences, key:String, st
 }
 
 fun getStringFromSharedPreferences(preferences: SharedPreferences, key: String): String{
+    //TODO: Change this to null and make it safe.
     var sharedString = preferences.getString(key, "nothing")
     return sharedString
 }

@@ -217,23 +217,34 @@ class MainActivity : AppCompatActivity() {
         saveCommentToSharedPrefeences(preferences,KEY_COMMENT, dailyComment)
     }
 
+
+    //Function loads moodList
+    fun loadMoodList() {
+        dailyMoodListData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
+        if(dailyMoodListData != "nothing"){
+            var gson = Gson()
+            val type = object : TypeToken<ArrayList<DailyMood>>() {
+            }.type
+            dailyMoodList = gson.fromJson(dailyMoodListData, type)
+        }
+    }
+
+    fun loadDailyMood(){
+        dailyMoodData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
+        if(dailyMoodData == "nothing"){
+            generateDefaultDailyMood()
+        } else {
+            var gson = Gson()
+            currentDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
+        }
+    }
+
+    fun loadComment(){
+        dailyComment = getStringFromSharedPreferences(preferences, KEY_COMMENT)
+    }
     //This function loads the values from SharedPreferences
     fun loadSharedPreferences(){
-        dailyMoodData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
-            if(dailyMoodData == "nothing"){
-                generateDefaultDailyMood()
-            } else {
-                var gson = Gson()
-                currentDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
-            }
-        dailyMoodListData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
-            if(dailyMoodListData != "nothing"){
-                var gson = Gson()
-                val type = object : TypeToken<ArrayList<DailyMood>>() {
-                }.type
-                dailyMoodList = gson.fromJson(dailyMoodListData, type)
-            }
-        dailyComment = getStringFromSharedPreferences(preferences, KEY_COMMENT)
+        
     }
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
