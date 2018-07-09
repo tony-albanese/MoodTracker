@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         loadMoodList()
         loadDailyMood()
         loadComment()
+        foo()
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -65,6 +66,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
+        foo()
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood) //Save current mood whenever the activity is paused.
         super.onPause()
     }
@@ -72,12 +74,14 @@ class MainActivity : AppCompatActivity() {
         System.out.println("onRestart() called")
         loadDailyMood() // Load here. Needs to be loaded before user interacts with MainActivity.
         loadComment() //Load here before user can interact with Activity.
+        foo()
         super.onRestart()
     }
     override fun onResume() {
         //super.onResume()
         System.out.println("onResume called")
         loadMoodList()
+        foo()
         super.onResume()
     }
 
@@ -114,31 +118,10 @@ class MainActivity : AppCompatActivity() {
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         return (enableTouchEvents && super.dispatchTouchEvent(ev))
     }
-
-    /*
-    //Function to save instance data if the device is rotated.
-    override fun onSaveInstanceState(outState: Bundle?) {
-        outState?.putString(KEY_COMMENT, dailyComment)
-        outState?.putString(KEY_DAILY_MOOD, gson.toJson(currentDailyMood))
-        outState?.putString(KEY_DAILY_MOOD_LIST, gson.toJson(dailyMoodList))
-        super.onSaveInstanceState(outState)
-    }
-
-    //Restores data from the Bundle.
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        super.onRestoreInstanceState(savedInstanceState)
-        val moodString = savedInstanceState?.getString(KEY_DAILY_MOOD)
-        currentDailyMood = gson.fromJson(moodString, DailyMood::class.java)
-        val listString = savedInstanceState?.getString(KEY_DAILY_MOOD_LIST)
-
-        dailyComment = savedInstanceState!!.getString(KEY_COMMENT)
-        val type = object : TypeToken<ArrayList<DailyMood>>() {}.type
-        dailyMoodList = gson.fromJson(listString, type)
-    }
-    */
-
+    
     //This function creates the dialog.
     fun createCommentDialogue() {
+        foo()
         var commentText: EditText = EditText(this)
         var dialog = AlertDialog.Builder(this)
         dialog.setView(commentText)
@@ -159,6 +142,7 @@ class MainActivity : AppCompatActivity() {
 
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
+        foo()
         enableTouchEvents = false
         Handler().postDelayed({
             enableTouchEvents = true
