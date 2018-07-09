@@ -68,8 +68,6 @@ class MainActivity : AppCompatActivity() {
     //TODO: Delete commented out code.
     override fun onRestart() {
         System.out.println("onRestart() called")
-        loadSharedPreferences()
-        foo()
         super.onRestart()
     }
 
@@ -79,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         loadMoodList()
         super.onResume()
     }
-    
+
     //Create the menu for the Activity.
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater: MenuInflater = getMenuInflater()
@@ -171,15 +169,6 @@ class MainActivity : AppCompatActivity() {
         createToast(applicationContext, message)
     }
 
-    //This is the function that generates the moods the user can select.
-    fun generateMoodSelectionList() {
-        moodList.add(Mood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy))
-        moodList.add(Mood(getString(R.string.mood_super_happy), R.mipmap.smiley_super_happy, R.color.color_super_happy))
-        moodList.add(Mood(getString(R.string.mood_normal), R.mipmap.smiley_normal, R.color.color_normal))
-        moodList.add(Mood(getString(R.string.mood_disappointed), R.mipmap.smiley_disappointed, R.color.color_disappointed))
-        moodList.add(Mood(getString(R.string.mood_sad), R.mipmap.smiley_sad, R.color.color_sad))
-    }
-
     //This function will initialize the state of the objects.
     fun initializeObjects(){
         todaysDate = Date()
@@ -191,16 +180,6 @@ class MainActivity : AppCompatActivity() {
         adapter = MoodRecyclerAdapter(moodList, { mood: Mood -> moodItemClicked(mood) }) //Initialize our adapter variable with a MoodReyclerAdapter object. We pass in our data as a paramater.
         recycler_view.adapter = adapter //Set the adapter property of the recycler_view to the adapter we just created.
     }
-
-    //This function generates the defaultMood.
-    fun generateDefaultDailyMood(){
-        val date = Date()
-        dailyComment = String()
-        currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, dailyComment, convertDate(date))
-        saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
-        saveCommentToSharedPrefeences(preferences,KEY_COMMENT, dailyComment)
-    }
-
 
     //Function loads moodList
     fun loadMoodList() {
@@ -227,12 +206,6 @@ class MainActivity : AppCompatActivity() {
         dailyComment = getStringFromSharedPreferences(preferences, KEY_COMMENT)
     }
 
-    //This function loads the values from SharedPreferences
-    //TODO: Delete this empty function body.
-    fun loadSharedPreferences(){
-
-    }
-
     //Thus function checks current date against the object's date and adds to the list if they don't match.
     fun foo (){
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
@@ -253,5 +226,22 @@ class MainActivity : AppCompatActivity() {
             dailyMoodList.removeAt(0)
             index = dailyMoodList.size
         }
+    }
+
+    //This is the function that generates the moods the user can select.
+    fun generateMoodSelectionList() {
+        moodList.add(Mood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy))
+        moodList.add(Mood(getString(R.string.mood_super_happy), R.mipmap.smiley_super_happy, R.color.color_super_happy))
+        moodList.add(Mood(getString(R.string.mood_normal), R.mipmap.smiley_normal, R.color.color_normal))
+        moodList.add(Mood(getString(R.string.mood_disappointed), R.mipmap.smiley_disappointed, R.color.color_disappointed))
+        moodList.add(Mood(getString(R.string.mood_sad), R.mipmap.smiley_sad, R.color.color_sad))
+    }
+    //This function generates the defaultMood.
+    fun generateDefaultDailyMood(){
+        val date = Date()
+        dailyComment = String()
+        currentDailyMood = DailyMood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy, dailyComment, convertDate(date))
+        saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
+        saveCommentToSharedPrefeences(preferences,KEY_COMMENT, dailyComment)
     }
 }
