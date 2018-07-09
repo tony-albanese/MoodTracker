@@ -49,8 +49,7 @@ class MainActivity : AppCompatActivity() {
         System.out.println("onCreate()")
         setContentView(R.layout.activity_main)
         initializeObjects()
-        loadSharedPreferences()
-        foo()
+        loadMoodList()
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -77,25 +76,10 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         //super.onResume()
         System.out.println("onResume called")
-        loadSharedPreferences()
-        foo()
+        loadMoodList()
         super.onResume()
     }
-
-    override fun onStop() {
-        System.out.println("onStop() called")
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        System.out.println("onDestroy() called")
-        super.onDestroy()
-    }
-
-    override fun onStart() {
-        System.out.println("onStart() called")
-        super.onStart()
-    }
+    
     //Create the menu for the Activity.
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater: MenuInflater = getMenuInflater()
@@ -242,9 +226,11 @@ class MainActivity : AppCompatActivity() {
     fun loadComment(){
         dailyComment = getStringFromSharedPreferences(preferences, KEY_COMMENT)
     }
+
     //This function loads the values from SharedPreferences
+    //TODO: Delete this empty function body.
     fun loadSharedPreferences(){
-        
+
     }
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
