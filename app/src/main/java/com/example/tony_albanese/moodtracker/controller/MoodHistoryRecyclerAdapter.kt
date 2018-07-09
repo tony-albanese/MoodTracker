@@ -25,9 +25,9 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
         var cardView: CardView
 
         init {
-            historyDateTextView = moodHistoryItemView.findViewById(R.id.mood_history_date)
-            historyImageView = moodHistoryItemView.findViewById(R.id.mood_history_image)
-            historyDescriptionTextView = moodHistoryItemView.findViewById(R.id.mood_history_description)
+            historyDateTextView = moodHistoryItemView.mood_history_date
+            historyImageView = moodHistoryItemView.mood_history_image
+            historyDescriptionTextView = moodHistoryItemView.mood_history_description
             cardView = moodHistoryItemView.mood_history_card_view
         }
     }
