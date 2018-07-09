@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.Mood
+import kotlinx.android.synthetic.main.mood_card_layout.view.*
 
 /* This class defines the RecyclerView Adapter object that will handle the moods the user can select from. This is NOT the adapter for the moods the user enters.*/
 //The MoodRecyclerAdapter acceps an ArrayList of Mood objects as it's parameter as well as a function with signature that accepts a Mood as a parameter and no return.
@@ -20,11 +21,11 @@ class MoodRecyclerAdapter(val moodList: ArrayList<Mood>, val clickListener: (Moo
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageItem: ImageView
         var itemText: TextView
-        var cardView: CardView = itemView.findViewById(R.id.card_view_layout)
+        var cardView: CardView = itemView.card_view_layout
 
         init {
-            imageItem = itemView.findViewById(R.id.card_mood_image)
-            itemText = itemView.findViewById(R.id.card_mood_text)
+            imageItem = itemView.card_mood_image
+            itemText = itemView.card_mood_text
         }
 
 
