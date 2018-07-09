@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity() {
             val type = object : TypeToken<ArrayList<DailyMood>>() {
             }.type
             dailyMoodList = gson.fromJson(dailyMoodListData, type)
-        }
+        } else dailyMoodList = ArrayList() //Reinitialize if there is nothing loaded.
     }
 
     fun loadDailyMood(){
