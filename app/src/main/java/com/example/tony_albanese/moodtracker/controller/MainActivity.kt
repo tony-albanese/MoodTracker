@@ -143,6 +143,7 @@ class MainActivity : AppCompatActivity() {
 
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
+        //TODO: Clear the comment.
         foo()
         enableTouchEvents = false
         Handler().postDelayed({
@@ -198,6 +199,7 @@ class MainActivity : AppCompatActivity() {
         //reset the dailyMood object.
         val date = Date()
         val todaysDate = convertDate(date)
+        //TODO: Use .isEqual() method when checking string equivalence.
         if (currentDailyMood.mDate != todaysDate) {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
             checkArraySize()

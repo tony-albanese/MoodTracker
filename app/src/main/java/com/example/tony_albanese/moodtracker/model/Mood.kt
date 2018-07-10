@@ -9,6 +9,7 @@ public open class Mood(description: String = "No description specified", imageID
     var mImageId: Int
     var mBackgoundColor: Int
 
+    //TODO: Generate an error message if the object is instantiated incorrectly.
 
     init {
         mDescription = description
