@@ -1,0 +1,3 @@
+package com.example.tony_albanese.moodtracker.controller
+
+class MainActivityTest
