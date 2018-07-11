@@ -143,8 +143,7 @@ class MainActivity : AppCompatActivity() {
 
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
-        currentDailyMood.mComment = ""
-        dailyComment = ""
+        //TODO: Reset comment didn't work. Think of better way.
         foo()
         enableTouchEvents = false
         Handler().postDelayed({
