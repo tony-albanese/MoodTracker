@@ -208,7 +208,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Function limits the array size to 7 entries.
+    //Function limits the array size to 7 entries. TODO: Build unit test for checkArraySize()
     fun checkArraySize() {
         var index: Int = dailyMoodList.size
         while (index > MAX_HISTORY_SIZE) {
@@ -216,6 +216,7 @@ class MainActivity : AppCompatActivity() {
             index = dailyMoodList.size
         }
     }
+
 
     //This is the function that generates the moods the user can select.
     fun generateMoodSelectionList() {
