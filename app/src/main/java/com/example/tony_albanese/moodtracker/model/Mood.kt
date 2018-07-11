@@ -8,8 +8,7 @@ public open class Mood(description: String = "No description specified", imageID
     var mImageId: Int
     var mBackgoundColor: Int
 
-    //TODO: Generate an error message if the object is instantiated incorrectly.
-
+    //TODO: Look into throwing an error if the object is instatiated improperly.
     init {
         mDescription = description
         mImageId = imageID
