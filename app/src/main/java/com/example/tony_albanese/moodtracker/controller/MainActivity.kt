@@ -199,8 +199,8 @@ class MainActivity : AppCompatActivity() {
         //reset the dailyMood object.
         val date = Date()
         val todaysDate = convertDate(date)
-        //TODO: Use .isEqual() method when checking string equivalence.
-        if (currentDailyMood.mDate != todaysDate) {
+
+        if (!currentDailyMood.mDate.equals(todaysDate)) {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
             checkArraySize()
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
