@@ -24,12 +24,10 @@ fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences, key: 
     sharedPreferences.edit().putString(key, stringedDailyMood).apply()
 }
 
-//TODO: Build unit test for saveCommentToSharedPreferences
 fun saveCommentToSharedPrefeences(preferences: SharedPreferences, key: String, string: String) {
     preferences.edit().putString(key, string).apply()
 }
 
-//TODO: Build unit test for getStringFromSharedPreferences()
 fun getStringFromSharedPreferences(preferences: SharedPreferences, key: String): String {
     //TODO: Change this to null and make it safe to call from the passing function.
     var sharedString = preferences.getString(key, "nothing")

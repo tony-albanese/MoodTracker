@@ -35,4 +35,16 @@ class MainActivityTest {
         assertEquals(string1, string2)
     }
 
+    @Test
+    fun getStringFromSharedPreferencesTest() {
+        val string1 = "Test"
+        preferences.edit().putString(PREF_KEY, string1).apply()
+        val string2 = getStringFromSharedPreferences(preferences, PREF_KEY)
+        assertEquals(string1, string2)
+    }
+
+    @Test
+    fun saveDailyMoodTest() {
+        
+    }
 }
