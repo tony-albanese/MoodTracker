@@ -21,6 +21,9 @@ class MainActivityTest {
     var testDailyMood: DailyMood = DailyMood("Description", 0, 0, "Comment", "Date")
     val gson = Gson()
     var testArrayList = ArrayList<DailyMood>()
+    val todaysDate = "Today"
+
+    var mainActivity = MainActivity()
 
 
     @Before
@@ -71,6 +74,24 @@ class MainActivityTest {
         val string1 = "nothing"
         val string2 = preferences.getString("BAD_KEY", "nothing")
         assertEquals(string1, string2)
+    }
+
+    @Test
+    fun testConvertFromJSON_dailyMood() {
+        val savedString = gson.toJson(testDailyMood)
+        val restoredMood: DailyMood = gson.fromJson(savedString, DailyMood::class.java)
+        assertEquals(restoredMood.mDescription, testDailyMood.mDescription)
+        //TODO: How to check for equality of objects.
+    }
+
+    @Test
+    fun differentDatesUpdateTest() {
+        
+    }
+
+    @Test
+    fun sameDatesUpdateTest() {
+
     }
 
 }
