@@ -194,7 +194,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
-    fun foo() {
+    //TODO: Add today's date as input. Then the output can be checked.
+    fun foo(): Boolean {
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
         val date = Date()
@@ -205,7 +206,8 @@ class MainActivity : AppCompatActivity() {
             checkArraySize()
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
-        }
+            return true
+        } else return false
     }
 
     //Function limits the array size to 7 entries. TODO: Build unit test for checkArraySize()
