@@ -19,10 +19,5 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getTargetContext()
         assertEquals("com.example.tony_albanese.moodtracker", appContext.packageName)
     }
-
-
-    @Test
-    fun test_foo() {
-        assertEquals(4, 4)
-    }
+    
 }
