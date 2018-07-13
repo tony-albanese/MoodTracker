@@ -217,7 +217,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     //This is the function that generates the moods the user can select.
     fun generateMoodSelectionList() {
         moodList.add(Mood(getString(R.string.mood_happy), R.mipmap.smiley_happy, R.color.color_happy))
