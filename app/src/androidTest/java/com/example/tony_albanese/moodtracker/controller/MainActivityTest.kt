@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import com.example.tony_albanese.moodtracker.model.DailyMood
+import com.google.gson.Gson
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -16,6 +18,9 @@ class MainActivityTest {
     lateinit var preferences: SharedPreferences
 
     val PREF_KEY = "KEY"
+    var testDailyMood: DailyMood = DailyMood("Description", 0, 0, "Comment", "Date")
+    val gson = Gson()
+
 
     @Before
     fun setUp() {
@@ -45,6 +50,11 @@ class MainActivityTest {
 
     @Test
     fun saveDailyMoodTest() {
-        
+        saveDailyMoodToSharedPreferences(preferences, PREF_KEY, testDailyMood)
+        val string1 = gson.toJson(testDailyMood)
+        val string2 = preferences.getString(PREF_KEY, "")
+        assertEquals(string1, string2)
     }
+
+    
 }
