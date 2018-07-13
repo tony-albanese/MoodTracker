@@ -86,7 +86,7 @@ class MainActivityTest {
 
     @Test
     fun differentDatesUpdateTest() {
-        
+
     }
 
     @Test
