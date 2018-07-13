@@ -17,7 +17,6 @@ fun convertDate(date: Date): String {
     return dateString
 }
 
-//TODO: Build unit test for saveDailyMoodtoSharedPreferences.
 fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences, key: String, dailyMood: DailyMood) {
     val gson: Gson = Gson()
     val stringedDailyMood: String = gson.toJson(dailyMood)
@@ -34,7 +33,7 @@ fun getStringFromSharedPreferences(preferences: SharedPreferences, key: String):
     return sharedString
 }
 
-//TODO: Build unit test for saveArrayListToSharedPreferences()
+
 fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String, array: ArrayList<DailyMood>) {
     var gson = Gson()
     var stringedArrayList = gson.toJson(array)
