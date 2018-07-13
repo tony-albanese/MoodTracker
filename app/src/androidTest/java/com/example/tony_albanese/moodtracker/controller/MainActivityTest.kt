@@ -64,7 +64,13 @@ class MainActivityTest {
         val savedString = preferences.getString(PREF_KEY, "")
         val testString = gson.toJson(testArrayList)
         assertEquals(savedString, testString)
+    }
 
+    @Test
+    fun testDefaultPreferncesResponse() {
+        val string1 = "nothing"
+        val string2 = preferences.getString("BAD_KEY", "nothing")
+        assertEquals(string1, string2)
     }
 
 }
