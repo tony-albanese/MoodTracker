@@ -20,12 +20,14 @@ class MainActivityTest {
     val PREF_KEY = "KEY"
     var testDailyMood: DailyMood = DailyMood("Description", 0, 0, "Comment", "Date")
     val gson = Gson()
+    var testArrayList = ArrayList<DailyMood>()
 
 
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getContext()
         preferences = context.getSharedPreferences("TEST_PREFERENCES", Context.MODE_PRIVATE)
+        testArrayList.add(testDailyMood)
     }
 
     @After
@@ -56,5 +58,13 @@ class MainActivityTest {
         assertEquals(string1, string2)
     }
 
-    
+    @Test
+    fun saveArrayListToSharedPreferencesTest() {
+        saveArrayListToSharedPreferences(preferences, PREF_KEY, testArrayList)
+        val savedString = preferences.getString(PREF_KEY, "")
+        val testString = gson.toJson(testArrayList)
+        assertEquals(savedString, testString)
+
+    }
+
 }
