@@ -16,12 +16,10 @@ import org.junit.runner.RunWith
 class MainActivityTest {
 
     lateinit var preferences: SharedPreferences
-
     val PREF_KEY = "KEY"
     var testDailyMood: DailyMood = DailyMood("Description", 0, 0, "Comment", "Date")
     val gson = Gson()
     var testArrayList = ArrayList<DailyMood>()
-
 
     @Before
     fun setUp() {
@@ -32,7 +30,6 @@ class MainActivityTest {
 
     @After
     fun tearDown() {
-
     }
 
     @Test
@@ -83,11 +80,17 @@ class MainActivityTest {
     }
 
     @Test
-    //TODO: See what is going on here. Test for equivalence in strings.
     fun differentDatesUpdateTest() {
     testDailyMood.mDate = "14/07/18"
         val today="15/07/18"
         assertEquals(false, testDailyMood.mDate.equals(today))
     }
 
+
+    @Test
+    fun sameDatesUpdateTest() {
+        testDailyMood.mDate = "14/07/18"
+        val today="14/07/18"
+        assertEquals(true, testDailyMood.mDate.equals(today))
+    }
 }
