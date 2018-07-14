@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
 
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
-        //TODO: Reset comment didn't work. Think of better way.
+        dailyComment = ""
         foo(convertDate(Date()))
         enableTouchEvents = false
         Handler().postDelayed({
@@ -154,6 +154,7 @@ class MainActivity : AppCompatActivity() {
         currentDailyMood.mDescription = mood.mDescription
         currentDailyMood.mImageId = mood.mImageId
         currentDailyMood.mBackgoundColor = mood.mBackgoundColor
+        currentDailyMood.mComment = dailyComment
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
     }
@@ -199,7 +200,7 @@ class MainActivity : AppCompatActivity() {
         //reset the dailyMood object.
 
         if (!currentDailyMood.mDate.equals(todaysDate)) {
-            dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
+            dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, currentDailyMood.mComment, currentDailyMood.mDate))
             checkArraySize()
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
