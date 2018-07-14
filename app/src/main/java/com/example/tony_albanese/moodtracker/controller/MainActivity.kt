@@ -194,7 +194,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
-    //TODO: Add today's date as input. Then the output can be checked.
     fun foo(todaysDate:String ): Boolean {
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
@@ -209,12 +208,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Function limits the array size to 7 entries. TODO: Build unit test for checkArraySize()
-    fun checkArraySize() {
+    fun checkArraySize() : Int {
         var index: Int = dailyMoodList.size
         while (index > MAX_HISTORY_SIZE) {
             dailyMoodList.removeAt(0)
             index = dailyMoodList.size
         }
+        return dailyMoodList.size
     }
 
     //This is the function that generates the moods the user can select.

@@ -21,9 +21,6 @@ class MainActivityTest {
     var testDailyMood: DailyMood = DailyMood("Description", 0, 0, "Comment", "Date")
     val gson = Gson()
     var testArrayList = ArrayList<DailyMood>()
-    val todaysDate = "Today"
-
-    var mainActivity = MainActivity()
 
 
     @Before
@@ -35,6 +32,7 @@ class MainActivityTest {
 
     @After
     fun tearDown() {
+
     }
 
     @Test
@@ -85,13 +83,11 @@ class MainActivityTest {
     }
 
     @Test
+    //TODO: See what is going on here. Test for equivalence in strings.
     fun differentDatesUpdateTest() {
-
-    }
-
-    @Test
-    fun sameDatesUpdateTest() {
-
+    testDailyMood.mDate = "14/07/18"
+        val today="15/07/18"
+        assertEquals(false, testDailyMood.mDate.equals(today))
     }
 
 }
