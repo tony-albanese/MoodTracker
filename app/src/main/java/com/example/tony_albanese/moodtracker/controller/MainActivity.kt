@@ -171,7 +171,7 @@ class MainActivity : AppCompatActivity() {
     //Function loads moodList
     fun loadMoodList() {
         dailyMoodListData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
-        if (dailyMoodListData != "nothing") {
+        if (dailyMoodListData != "") {
             var gson = Gson()
             val type = object : TypeToken<ArrayList<DailyMood>>() {
             }.type
@@ -181,7 +181,7 @@ class MainActivity : AppCompatActivity() {
 
     fun loadDailyMood() {
         dailyMoodData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
-        if (dailyMoodData == "nothing") {
+        if (dailyMoodData == "") {
             generateDefaultDailyMood() //ensures that a default mood is made if none is saved.
         } else {
             var gson = Gson()
