@@ -198,7 +198,7 @@ class MainActivity : AppCompatActivity() {
     fun foo(todaysDate:String ): Boolean {
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
-
+        //TODO How can you break the logic apart?
         if (!currentDailyMood.mDate.equals(todaysDate)) {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, currentDailyMood.mComment, currentDailyMood.mDate))
             checkArraySize()
