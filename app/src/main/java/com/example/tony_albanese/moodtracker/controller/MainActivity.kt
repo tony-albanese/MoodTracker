@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         loadMoodList()
         loadDailyMood()
         loadComment()
-        foo()
+        foo(convertDate(Date()))
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-        foo()
+        foo(convertDate(Date()))
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood) //Save current mood whenever the activity is paused.
         super.onPause()
     }
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         System.out.println("onRestart() called")
         loadDailyMood() // Load here. Needs to be loaded before user interacts with MainActivity.
         loadComment() //Load here before user can interact with Activity.
-        foo()
+        foo(convertDate(Date()))
         super.onRestart()
     }
 
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         //super.onResume()
         System.out.println("onResume called")
         loadMoodList()
-        foo()
+        foo(convertDate(Date()))
         super.onResume()
     }
 
@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
 
     //This function creates the dialog.
     fun createCommentDialogue() {
-        foo()
+        foo(convertDate(Date()))
         var commentText: EditText = EditText(this)
         var dialog = AlertDialog.Builder(this)
         dialog.setView(commentText)
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
         //TODO: Reset comment didn't work. Think of better way.
-        foo()
+        foo(convertDate(Date()))
         enableTouchEvents = false
         Handler().postDelayed({
             enableTouchEvents = true
@@ -195,11 +195,9 @@ class MainActivity : AppCompatActivity() {
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
     //TODO: Add today's date as input. Then the output can be checked.
-    fun foo(): Boolean {
+    fun foo(todaysDate:String ): Boolean {
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
-        val date = Date()
-        val todaysDate = convertDate(date)
 
         if (!currentDailyMood.mDate.equals(todaysDate)) {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, dailyComment, currentDailyMood.mDate))
