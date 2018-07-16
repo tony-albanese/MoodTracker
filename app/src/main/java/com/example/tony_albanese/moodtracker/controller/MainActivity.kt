@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                 var intent = Intent(Intent.ACTION_SEND)
                 var sharedText = "Hi! ${currentDailyMood.mDescription} ${currentDailyMood.mComment}"
                 sharedText.trim() //Clean up trailing white space.
-                intent.setType("text/html")
+                intent.setType("text/plain")
                 intent.putExtra(Intent.EXTRA_TEXT, sharedText)
                 startActivity(Intent.createChooser(intent, "Share using: "))
                 return true
