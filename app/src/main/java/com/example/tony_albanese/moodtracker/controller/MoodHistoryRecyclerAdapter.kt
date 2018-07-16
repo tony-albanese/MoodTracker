@@ -12,13 +12,12 @@ import com.example.tony_albanese.moodtracker.R
 import com.example.tony_albanese.moodtracker.model.DailyMood
 import kotlinx.android.synthetic.main.mood_history_card_layout.view.*
 
-
+//This custom class defines that adapter that will populate the RecyclerView with data.
 class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>() {
 
-
+    //This inner class creates the ViewHolder object that will contain our views to populate.
     inner class ViewHolder(moodHistoryItemView: View) : RecyclerView.ViewHolder(moodHistoryItemView) {
-
-
+        //These variables are the views that will be populated.
         var historyDateTextView: TextView
         var historyImageView: ImageView
         var historyDescriptionTextView: TextView
@@ -32,10 +31,12 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
         }
     }
 
+    //Returns the size of the list.
     override fun getItemCount(): Int {
         return dailyMoodList.size
     }
 
+    //This function binds the data from the list to views in the view holder.
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val currentDailyMood = dailyMoodList[i]
         viewHolder.historyDateTextView.text = currentDailyMood.mDate
@@ -49,10 +50,14 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
         }
 
         viewHolder.historyImageView.setImageResource(currentDailyMood.mImageId)
+
+        //This line converts the backgroundColor value to an actual android color object.
+
         var color = ContextCompat.getColor(viewHolder.cardView.context, currentDailyMood.mBackgoundColor)
         viewHolder.cardView.setCardBackgroundColor(color)
     }
 
+    //Function inflates the layout and returns the ViewHolder.
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.mood_history_card_layout, viewGroup, false)
         return ViewHolder(v)
