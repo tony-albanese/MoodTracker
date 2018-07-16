@@ -32,7 +32,7 @@ class MainActivityTest {
 
 
         for(i in 0..largeSize){
-            largeArrayList.add(DailyMood("Description ${i}", i, i, "Comment ${i}", "Date ${i}"))
+            largeArrayList.add(DailyMood("Description $i", i, i, "Comment $i", "Date $i"))
         }
     }
 
