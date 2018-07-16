@@ -31,14 +31,14 @@ fun saveCommentToSharedPrefeences(preferences: SharedPreferences, key: String, s
 
 //Get a string from SharedPreferences.
 fun getStringFromSharedPreferences(preferences: SharedPreferences, key: String): String {
-    var sharedString = preferences.getString(key, "")
+    val sharedString = preferences.getString(key, "")
     return sharedString
 }
 
 //Save the ArrayList to SharedPreferences after storing it as JSON data.
 fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String, array: ArrayList<DailyMood>) {
-    var gson = Gson()
-    var stringedArrayList = gson.toJson(array)
+    val gson = Gson()
+    val stringedArrayList = gson.toJson(array)
     preferences.edit().putString(key, stringedArrayList).apply()
 }
 

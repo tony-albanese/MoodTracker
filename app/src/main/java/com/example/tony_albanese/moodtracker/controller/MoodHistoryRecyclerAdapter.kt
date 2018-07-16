@@ -44,7 +44,7 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
         if (!currentDailyMood.mComment.isNullOrBlank()) {
             viewHolder.historyDescriptionTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_comment_black_48px, 0)
             viewHolder.historyDescriptionTextView.setOnClickListener { v: View ->
-                var comment = currentDailyMood.mComment
+                val comment = currentDailyMood.mComment
                 createToast(v.context, comment)
             }
         }
@@ -53,7 +53,7 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
 
         //This line converts the backgroundColor value to an actual android color object.
 
-        var color = ContextCompat.getColor(viewHolder.cardView.context, currentDailyMood.mBackgoundColor)
+        val color = ContextCompat.getColor(viewHolder.cardView.context, currentDailyMood.mBackgoundColor)
         viewHolder.cardView.setCardBackgroundColor(color)
     }
 
