@@ -40,7 +40,7 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
         val currentDailyMood = dailyMoodList[i]
         viewHolder.historyDateTextView.text = currentDailyMood.mDate
         viewHolder.historyDescriptionTextView.text = currentDailyMood.mDescription
-        if (!currentDailyMood.mComment.isNullOrBlank()) {
+        if (!currentDailyMood.mComment.isBlank()) {
             viewHolder.historyDescriptionTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.ic_comment_black_48px, 0)
             viewHolder.historyDescriptionTextView.setOnClickListener { v: View ->
                 val comment = currentDailyMood.mComment
