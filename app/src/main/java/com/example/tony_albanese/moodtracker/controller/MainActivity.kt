@@ -23,19 +23,19 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-    lateinit var preferences: SharedPreferences
+    lateinit var preferences: SharedPreferences //Need a reference to SharedPreferences to store data.
     private var layoutManager: RecyclerView.LayoutManager? = null //Create a reference to the layout manager that will organize the views in the RecyclerAdapter.
     private var adapter: RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>? = null //Create a reference to our custom adapter.
     private var moodList = ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
 
-    lateinit var currentDailyMood: DailyMood
+    lateinit var currentDailyMood: DailyMood //Variable to store the daily mood.
 
-    var dailyComment: String = ""
-    var dailyMoodList = ArrayList<DailyMood>()
-    val MAX_HISTORY_SIZE = 7;
-    var enableTouchEvents: Boolean = true
+    var dailyComment: String = "" //Comment is initialized to an empty string.
+    var dailyMoodList = ArrayList<DailyMood>() //Array list to store
+    val MAX_HISTORY_SIZE = 7; //Set the maximum number of entries to record.
+    var enableTouchEvents: Boolean = true //Variable to keep track of whether to allow touch event.
 
-    val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD"
+    val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD" 
     val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
     val KEY_COMMENT: String = "KEY_COMMENT"
     lateinit var dailyMoodData: String
