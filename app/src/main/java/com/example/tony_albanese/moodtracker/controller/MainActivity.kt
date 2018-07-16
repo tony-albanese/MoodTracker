@@ -35,16 +35,15 @@ class MainActivity : AppCompatActivity() {
     val MAX_HISTORY_SIZE = 7; //Set the maximum number of entries to record.
     var enableTouchEvents: Boolean = true //Variable to keep track of whether to allow touch event.
 
-    val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD" 
-    val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST"
-    val KEY_COMMENT: String = "KEY_COMMENT"
-    lateinit var dailyMoodData: String
-    lateinit var dailyMoodListData: String
+    val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD" //Key to store daily mood in SharedPrefernces.
+    val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST" //Key to store mood list in SharedPreferences.
+    val KEY_COMMENT: String = "KEY_COMMENT" //Key to store the comment in SharedPrefences.
+    lateinit var dailyMoodData: String //This variable stores the serialized JSON of the object.
+    lateinit var dailyMoodListData: String //This variable stores the moodList as a JSON string.
 
     //onCreate() function
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        System.out.println("onCreate()")
         setContentView(R.layout.activity_main)
         initializeObjects()
         loadMoodList()
@@ -65,23 +64,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Date is verified and daily mood saved when the activity is paused.
     override fun onPause() {
         foo(convertDate(Date()))
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood) //Save current mood whenever the activity is paused.
         super.onPause()
     }
 
+    //Data is loaded when the activity is restarted and the date is checked.
     override fun onRestart() {
-        System.out.println("onRestart() called")
         loadDailyMood() // Load here. Needs to be loaded before user interacts with MainActivity.
         loadComment() //Load here before user can interact with Activity.
         foo(convertDate(Date()))
         super.onRestart()
     }
 
+    //Moodlist is loaded when the activity is resumed and the date is checked.
     override fun onResume() {
-        //super.onResume()
-        System.out.println("onResume called")
         loadMoodList()
         foo(convertDate(Date()))
         super.onResume()
@@ -100,13 +99,13 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_item_share_mood -> {
                 var intent = Intent(Intent.ACTION_SEND)
                 var sharedText = "Hi! ${currentDailyMood.mDescription} ${currentDailyMood.mComment}"
-                sharedText.trim()
+                sharedText.trim() //Clean up trailing white space.
                 intent.setType("text/html")
                 intent.putExtra(Intent.EXTRA_TEXT, sharedText)
                 startActivity(Intent.createChooser(intent, "Share using: "))
                 return true
             }
-            R.id.menu_item_delete_history -> {
+            R.id.menu_item_delete_history -> { //Clear the list and save it.
                 dailyMoodList.clear()
                 saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
                 return true
@@ -132,7 +131,7 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton("Cancel", null)
         dialog.setPositiveButton("OK") { dialog, button ->
             dailyComment = commentText.text.toString()
-            dailyComment.trim()
+            dailyComment.trim() //Clean up trailing white space.
             currentDailyMood.mComment = dailyComment
             saveCommentToSharedPrefeences(preferences, KEY_COMMENT, dailyComment)
             saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
@@ -173,13 +172,14 @@ class MainActivity : AppCompatActivity() {
     fun loadMoodList() {
         dailyMoodListData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
         if (dailyMoodListData != "") {
-            var gson = Gson()
+            var gson = Gson() //Create a Gson object instance.
             val type = object : TypeToken<ArrayList<DailyMood>>() {
-            }.type
-            dailyMoodList = gson.fromJson(dailyMoodListData, type)
+            }.type //Declare the type of object that should be restored.
+            dailyMoodList = gson.fromJson(dailyMoodListData, type) //Restore the object from Json
         } else dailyMoodList = ArrayList() //Reinitialize if there is nothing loaded.
     }
 
+    //Load the daily mood from shared preferences. If none is saved, a default mood is set.
     fun loadDailyMood() {
         dailyMoodData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD)
         if (dailyMoodData == "") {
@@ -190,6 +190,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Load the comment from SharedPreferences.
     fun loadComment() {
         dailyComment = getStringFromSharedPreferences(preferences, KEY_COMMENT)
     }
