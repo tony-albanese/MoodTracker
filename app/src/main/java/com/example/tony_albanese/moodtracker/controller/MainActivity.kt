@@ -88,19 +88,19 @@ class MainActivity : AppCompatActivity() {
 
     //Create the menu for the Activity.
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater: MenuInflater = getMenuInflater()
+        val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     //Handles the action when the user clicks on Menu option.
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.getItemId()) {
+        when (item?.itemId) {
             R.id.menu_item_share_mood -> {
                 val intent = Intent(Intent.ACTION_SEND)
                 val sharedText = "Hi! ${currentDailyMood.mDescription} ${currentDailyMood.mComment}"
                 sharedText.trim() //Clean up trailing white space.
-                intent.setType("text/plain")
+                intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_TEXT, sharedText)
                 startActivity(Intent.createChooser(intent, "Share using: "))
                 return true
