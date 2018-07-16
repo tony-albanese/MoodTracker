@@ -207,17 +207,7 @@ class MainActivity : AppCompatActivity() {
             return true
         } else return false
     }
-
-    //Function limits the array size to 7 entries. )
-    //TODO: Delete this function if testing works.
-    fun checkArraySize() : Int {
-        var index: Int = dailyMoodList.size
-        while (index > MAX_HISTORY_SIZE) {
-            dailyMoodList.removeAt(0)
-            index = dailyMoodList.size
-        }
-        return dailyMoodList.size
-    }
+    
 
     //This is the function that generates the moods the user can select.
     fun generateMoodSelectionList() {
