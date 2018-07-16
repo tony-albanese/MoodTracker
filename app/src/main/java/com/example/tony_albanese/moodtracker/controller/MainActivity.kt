@@ -123,8 +123,8 @@ class MainActivity : AppCompatActivity() {
     //This function creates the dialog.
     private fun createCommentDialogue() {
         foo(convertDate(Date()))
-        var commentText: EditText = EditText(this)
-        var dialog = AlertDialog.Builder(this)
+        val commentText: EditText = EditText(this)
+        val dialog = AlertDialog.Builder(this)
         dialog.setView(commentText)
         dialog.setTitle("How are you feeling?")
                 .setMessage("Enter a comment.")
@@ -171,12 +171,12 @@ class MainActivity : AppCompatActivity() {
     //Function loads moodList
     fun loadMoodList() {
         dailyMoodListData = getStringFromSharedPreferences(preferences, KEY_DAILY_MOOD_LIST)
-        if (dailyMoodListData != "") {
-            var gson = Gson() //Create a Gson object instance.
+        dailyMoodList = if (dailyMoodListData != "") {
+            val gson = Gson() //Create a Gson object instance.
             val type = object : TypeToken<ArrayList<DailyMood>>() {
             }.type //Declare the type of object that should be restored.
-            dailyMoodList = gson.fromJson(dailyMoodListData, type) //Restore the object from Json
-        } else dailyMoodList = ArrayList() //Reinitialize if there is nothing loaded.
+            gson.fromJson(dailyMoodListData, type) //Restore the object from Json
+        } else ArrayList() //Reinitialize if there is nothing loaded.
     }
 
     //Load the daily mood from shared preferences. If none is saved, a default mood is set.
@@ -185,7 +185,7 @@ class MainActivity : AppCompatActivity() {
         if (dailyMoodData == "") {
             generateDefaultDailyMood() //ensures that a default mood is made if none is saved.
         } else {
-            var gson = Gson()
+            val gson = Gson()
             currentDailyMood = gson.fromJson(dailyMoodData, DailyMood::class.java)
         }
     }
@@ -199,13 +199,13 @@ class MainActivity : AppCompatActivity() {
     fun foo(todaysDate:String ): Boolean {
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
-        if (!currentDailyMood.mDate.equals(todaysDate)) {
+        return if (!currentDailyMood.mDate.equals(todaysDate)) {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, currentDailyMood.mComment, currentDailyMood.mDate))
             dailyMoodList = cleanArrayList(MAX_HISTORY_SIZE, dailyMoodList)
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
-            return true
-        } else return false
+            true
+        } else false
     }
 
     //This is the function that generates the moods the user can select.
