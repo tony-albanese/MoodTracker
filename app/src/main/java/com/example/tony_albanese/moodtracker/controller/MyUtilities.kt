@@ -47,3 +47,13 @@ fun createToast(context: Context, message: String) {
     val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
     toast.show()
 }
+
+//Function to check the arraylist size and clean it up if it is too big.
+fun cleanArrayList(size: Int, array: ArrayList<DailyMood>): ArrayList<DailyMood>{
+    var index: Int = array.size
+    while (index > size) {
+        array.removeAt(0)
+        index = array.size
+    }
+    return array
+}
