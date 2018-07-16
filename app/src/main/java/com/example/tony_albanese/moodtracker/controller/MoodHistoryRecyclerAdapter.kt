@@ -18,13 +18,12 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
     //This inner class creates the ViewHolder object that will contain our views to populate.
     inner class ViewHolder(moodHistoryItemView: View) : RecyclerView.ViewHolder(moodHistoryItemView) {
         //These variables are the views that will be populated.
-        var historyDateTextView: TextView
+        var historyDateTextView: TextView = moodHistoryItemView.mood_history_date
         var historyImageView: ImageView
         var historyDescriptionTextView: TextView
         var cardView: CardView
 
         init {
-            historyDateTextView = moodHistoryItemView.mood_history_date
             historyImageView = moodHistoryItemView.mood_history_image
             historyDescriptionTextView = moodHistoryItemView.mood_history_description
             cardView = moodHistoryItemView.mood_history_card_view

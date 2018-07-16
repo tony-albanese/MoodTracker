@@ -19,12 +19,11 @@ class MoodRecyclerAdapter(val moodList: ArrayList<Mood>, val clickListener: (Moo
     //The ViewHolder class defines the views from the CardLayout that will be "held" and populated in the RecyclerView.
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imageItem: ImageView
+        var imageItem: ImageView = itemView.card_mood_image
         var itemText: TextView
         var cardView: CardView = itemView.card_view_layout
 
         init {
-            imageItem = itemView.card_mood_image
             itemText = itemView.card_mood_text
         }
 
