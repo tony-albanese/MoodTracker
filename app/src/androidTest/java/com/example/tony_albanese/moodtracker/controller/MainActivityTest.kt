@@ -21,11 +21,19 @@ class MainActivityTest {
     val gson = Gson()
     var testArrayList = ArrayList<DailyMood>()
 
+    var largeArrayList = ArrayList<DailyMood>()
+    val largeSize = 10
+
     @Before
     fun setUp() {
         val context = InstrumentationRegistry.getContext()
         preferences = context.getSharedPreferences("TEST_PREFERENCES", Context.MODE_PRIVATE)
         testArrayList.add(testDailyMood)
+
+
+        for(i in 0..largeSize){
+            largeArrayList.add(DailyMood("Description ${i}", i, i, "Comment ${i}", "Date ${i}"))
+        }
     }
 
     @After
@@ -92,5 +100,16 @@ class MainActivityTest {
         testDailyMood.mDate = "14/07/18"
         val today="14/07/18"
         assertEquals(true, testDailyMood.mDate.equals(today))
+    }
+
+    @Test
+    fun testLargeArraySize(){
+        assertEquals(11, largeArrayList.size)
+    }
+
+    @Test
+    fun testArrayCleaningFunction(){
+        val cleanedArray = cleanArrayList(7, largeArrayList)
+        assertEquals(7, cleanedArray.size)
     }
 }
