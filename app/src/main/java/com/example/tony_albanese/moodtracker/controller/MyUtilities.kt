@@ -19,7 +19,7 @@ fun convertDate(date: Date): String {
 
 //Share the daily mood to shared preferences after converting it to JSON string.
 fun saveDailyMoodToSharedPreferences(sharedPreferences: SharedPreferences, key: String, dailyMood: DailyMood) {
-    val gson: Gson = Gson()
+    val gson = Gson()
     val stringedDailyMood: String = gson.toJson(dailyMood)
     sharedPreferences.edit().putString(key, stringedDailyMood).apply()
 }

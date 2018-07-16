@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     //This function creates the dialog.
     private fun createCommentDialogue() {
         foo(convertDate(Date()))
-        val commentText: EditText = EditText(this)
+        val commentText = EditText(this)
         val dialog = AlertDialog.Builder(this)
         dialog.setView(commentText)
         dialog.setTitle("How are you feeling?")
