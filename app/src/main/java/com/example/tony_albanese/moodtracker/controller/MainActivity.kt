@@ -23,21 +23,21 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-    lateinit var preferences: SharedPreferences //Need a reference to SharedPreferences to store data.
+    private lateinit var preferences: SharedPreferences //Need a reference to SharedPreferences to store data.
     private var layoutManager: RecyclerView.LayoutManager? = null //Create a reference to the layout manager that will organize the views in the RecyclerAdapter.
     private var adapter: RecyclerView.Adapter<MoodRecyclerAdapter.ViewHolder>? = null //Create a reference to our custom adapter.
-    private var moodList = ArrayList<Mood>(); //This is the object that will contain a collection of Mood objects for display.
+    private var moodList = ArrayList<Mood>() //This is the object that will contain a collection of Mood objects for display.
 
-    lateinit var currentDailyMood: DailyMood //Variable to store the daily mood.
+    private lateinit var currentDailyMood: DailyMood //Variable to store the daily mood.
 
-    var dailyComment: String = "" //Comment is initialized to an empty string.
-    var dailyMoodList = ArrayList<DailyMood>() //Array list to store
-    val MAX_HISTORY_SIZE = 7; //Set the maximum number of entries to record.
+    private var dailyComment: String = "" //Comment is initialized to an empty string.
+    private var dailyMoodList = ArrayList<DailyMood>() //Array list to store
+    private val MAX_HISTORY_SIZE = 7 //Set the maximum number of entries to record.
     var enableTouchEvents: Boolean = true //Variable to keep track of whether to allow touch event.
 
-    val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD" //Key to store daily mood in SharedPrefernces.
-    val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST" //Key to store mood list in SharedPreferences.
-    val KEY_COMMENT: String = "KEY_COMMENT" //Key to store the comment in SharedPrefences.
+    private val KEY_DAILY_MOOD: String = "KEY_DAILY_MOOD" //Key to store daily mood in SharedPrefernces.
+    private val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST" //Key to store mood list in SharedPreferences.
+    private val KEY_COMMENT: String = "KEY_COMMENT" //Key to store the comment in SharedPrefences.
     lateinit var dailyMoodData: String //This variable stores the serialized JSON of the object.
     lateinit var dailyMoodListData: String //This variable stores the moodList as a JSON string.
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
-            val intent: Intent = Intent(this, MoodHistoryActivity::class.java)
+            val intent = Intent(this, MoodHistoryActivity::class.java)
             intent.putExtra(KEY_DAILY_MOOD_LIST, dailyMoodList as Serializable)
             startActivity(intent)
         }
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
     //Create the menu for the Activity.
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        var inflater: MenuInflater = getMenuInflater()
+        val inflater: MenuInflater = getMenuInflater()
         inflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -97,8 +97,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.getItemId()) {
             R.id.menu_item_share_mood -> {
-                var intent = Intent(Intent.ACTION_SEND)
-                var sharedText = "Hi! ${currentDailyMood.mDescription} ${currentDailyMood.mComment}"
+                val intent = Intent(Intent.ACTION_SEND)
+                val sharedText = "Hi! ${currentDailyMood.mDescription} ${currentDailyMood.mComment}"
                 sharedText.trim() //Clean up trailing white space.
                 intent.setType("text/plain")
                 intent.putExtra(Intent.EXTRA_TEXT, sharedText)
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //This function creates the dialog.
-    fun createCommentDialogue() {
+    private fun createCommentDialogue() {
         foo(convertDate(Date()))
         var commentText: EditText = EditText(this)
         var dialog = AlertDialog.Builder(this)
@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
             enableTouchEvents = true
         }, 2000) // LENGTH_SHORT is usually 2 second long
 
-        var message = "The current mood has been set to: ${mood.mDescription}"
+        val message = "The current mood has been set to: ${mood.mDescription}"
         currentDailyMood.mDescription = mood.mDescription
         currentDailyMood.mImageId = mood.mImageId
         currentDailyMood.mBackgoundColor = mood.mBackgoundColor
