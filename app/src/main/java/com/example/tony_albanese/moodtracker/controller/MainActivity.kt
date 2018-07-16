@@ -199,17 +199,17 @@ class MainActivity : AppCompatActivity() {
     fun foo(todaysDate:String ): Boolean {
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
-        //TODO How can you break the logic apart?
         if (!currentDailyMood.mDate.equals(todaysDate)) {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, currentDailyMood.mComment, currentDailyMood.mDate))
-            checkArraySize()
+            dailyMoodList = cleanArrayList(MAX_HISTORY_SIZE, dailyMoodList)
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
             return true
         } else return false
     }
 
-    //Function limits the array size to 7 entries. TODO: Build unit test for checkArraySize()
+    //Function limits the array size to 7 entries. )
+    //TODO: Delete this function if testing works.
     fun checkArraySize() : Int {
         var index: Int = dailyMoodList.size
         while (index > MAX_HISTORY_SIZE) {
