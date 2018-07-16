@@ -13,7 +13,7 @@ class MoodHistoryActivity : AppCompatActivity() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null //Need a layout manager for the recycler view.
     private var adapter: RecyclerView.Adapter<MoodHistoryRecyclerAdapter.ViewHolder>? = null //Adapter for the recycler view.
-    var moodHistoryList = ArrayList<DailyMood>(); //The array list that will hold the history.
+    var moodHistoryList = ArrayList<DailyMood>() //The array list that will hold the history.
     val KEY_DAILY_MOOD_LIST: String = "KEY_DAILY_MOOD_LIST" //The Key to retrieving the list from the intent.
 
     override fun onCreate(savedInstanceState: Bundle?) {
