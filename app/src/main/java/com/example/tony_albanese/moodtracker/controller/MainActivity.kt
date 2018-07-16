@@ -207,7 +207,6 @@ class MainActivity : AppCompatActivity() {
             return true
         } else return false
     }
-    
 
     //This is the function that generates the moods the user can select.
     fun generateMoodSelectionList() {
