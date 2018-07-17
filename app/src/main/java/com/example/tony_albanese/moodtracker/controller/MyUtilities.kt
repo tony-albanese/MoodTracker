@@ -1,5 +1,7 @@
 package com.example.tony_albanese.moodtracker.controller
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
@@ -7,6 +9,7 @@ import com.example.tony_albanese.moodtracker.model.DailyMood
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 //This simple function converts a date object into a readable String for the app.
 //TODO: Build unit test for convertDate()
@@ -56,4 +59,13 @@ fun cleanArrayList(size: Int, array: ArrayList<DailyMood>): ArrayList<DailyMood>
         index = array.size
     }
     return array
+}
+
+//Function creates a help dialog.
+fun createAlertDialog(activity: Activity, message: String): AlertDialog{
+    val alertDialog = AlertDialog.Builder(activity).create()
+    alertDialog.setTitle("Help")
+    alertDialog.setMessage(message)
+    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK") { dialog, which -> alertDialog.dismiss() }
+    return alertDialog
 }
