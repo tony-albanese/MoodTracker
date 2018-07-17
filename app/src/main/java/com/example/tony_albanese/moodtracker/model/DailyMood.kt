@@ -15,4 +15,34 @@ class DailyMood(description: String = "No description specified", imageID: Int, 
     override fun compareTo(other: DailyMood): Int {
      return 0
     }
+
+    fun equals(other: DailyMood): Boolean {
+
+        if(other == null) {
+            return false
+        }
+        if(this.mDescription != other.mDescription) {
+            return false
+        }
+
+        if(this.mComment != other.mComment) {
+            return false
+        }
+
+        if(this.mDate != other.mDate) {
+            return false
+        }
+
+        if(this.mBackgoundColor != other.mBackgoundColor){
+            return false
+        }
+
+        if(this.mImageId != other.mImageId){
+            return false
+        }
+        else return true
+    }
+
+
+
 }
