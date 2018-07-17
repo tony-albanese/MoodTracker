@@ -8,4 +8,5 @@
     <string name="mood_sad">I feel sad.</string>
     <string name="share">Share Mood</string>
     <string name="clear_history">Clear History</string>
+    <string name="help">Tap on a mood that most closely resembles how you are feeling. Add a comment if you wish. You can change your mood as often as you like for the day. When you do, your comment gets erased. Your mood gets saved at the start of a new day. After that, you cannot change your mood history.</string>
 </resources>
