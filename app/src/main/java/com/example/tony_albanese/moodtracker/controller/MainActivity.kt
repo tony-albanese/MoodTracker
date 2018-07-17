@@ -110,6 +110,12 @@ class MainActivity : AppCompatActivity() {
                 saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
                 return true
             }
+
+            R.id.menu_item_help -> { //Show the help dialog.
+                val helpDialog = createAlertDialog(this, getString(R.string.help_text))
+                helpDialog.show()
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
 
