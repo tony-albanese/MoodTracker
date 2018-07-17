@@ -154,7 +154,7 @@ class MainActivity : AppCompatActivity() {
         currentDailyMood.mImageId = mood.mImageId
         currentDailyMood.mBackgoundColor = mood.mBackgoundColor
         currentDailyMood.mComment = dailyComment
-        main_activity_linear_layout.selected_mood_text_view.text = currentDailyMood.mDescription
+        main_activity_linear_layout.selected_mood_text_view.text = "Current Mood: ${currentDailyMood.mDescription}"
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
     }
@@ -206,7 +206,7 @@ class MainActivity : AppCompatActivity() {
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
         }
-        main_activity_linear_layout.selected_mood_text_view.text = currentDailyMood.mDescription
+        main_activity_linear_layout.selected_mood_text_view.text = "Current Mood: ${currentDailyMood.mDescription}"
     }
 
     //This is the function that generates the moods the user can select.
