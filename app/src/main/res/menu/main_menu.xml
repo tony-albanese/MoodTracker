@@ -11,5 +11,9 @@
         app:showAsAction="ifRoom"
         android:title="@string/clear_history"
         />
+    <item android:id="@+id/menu_item_help"
+        android:title="@string/menu_title_help"
+        android:icon="@drawable/ic_action_help"
+        app:showAsAction="ifRoom"/>
 
 </menu>
