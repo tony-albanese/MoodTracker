@@ -154,6 +154,7 @@ class MainActivity : AppCompatActivity() {
         currentDailyMood.mImageId = mood.mImageId
         currentDailyMood.mBackgoundColor = mood.mBackgoundColor
         currentDailyMood.mComment = dailyComment
+        main_activity_linear_layout.selected_mood_text_view.text = currentDailyMood.mDescription
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood)
         createToast(applicationContext, message)
     }
@@ -196,16 +197,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
-    fun foo(todaysDate:String ): Boolean {
+    fun foo(todaysDate:String ){
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
-        return if (!currentDailyMood.mDate.equals(todaysDate)) {
+        if (!currentDailyMood.mDate.equals(todaysDate)) {
             dailyMoodList.add(DailyMood(currentDailyMood.mDescription, currentDailyMood.mImageId, currentDailyMood.mBackgoundColor, currentDailyMood.mComment, currentDailyMood.mDate))
             dailyMoodList = cleanArrayList(MAX_HISTORY_SIZE, dailyMoodList)
             saveArrayListToSharedPreferences(preferences, KEY_DAILY_MOOD_LIST, dailyMoodList)
             generateDefaultDailyMood()
-            true
-        } else false
+        }
+        main_activity_linear_layout.selected_mood_text_view.text = currentDailyMood.mDescription
     }
 
     //This is the function that generates the moods the user can select.
