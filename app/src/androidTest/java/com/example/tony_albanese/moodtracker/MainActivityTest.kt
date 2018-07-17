@@ -84,8 +84,7 @@ class MainActivityTest {
     fun testConvertFromJSON_dailyMood() {
         val savedString = gson.toJson(testDailyMood)
         val restoredMood: DailyMood = gson.fromJson(savedString, DailyMood::class.java)
-        assertEquals(restoredMood.mDescription, testDailyMood.mDescription)
-        //assertEquals(0, restoredMood==testDailyMood)
+        assertEquals(true, restoredMood.equals(testDailyMood))
     }
 
     @Test
