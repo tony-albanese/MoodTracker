@@ -85,8 +85,7 @@ class MainActivityTest {
         val savedString = gson.toJson(testDailyMood)
         val restoredMood: DailyMood = gson.fromJson(savedString, DailyMood::class.java)
         assertEquals(restoredMood.mDescription, testDailyMood.mDescription)
-        //TODO: How to check for equality of objects. Check the SDK documentation. equatable vs. comparable.
-        // import kotlin.comparable maybe even define equality operators. (operator overload)
+        //assertEquals(0, restoredMood==testDailyMood)
     }
 
     @Test
