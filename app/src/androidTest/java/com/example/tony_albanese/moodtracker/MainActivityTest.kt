@@ -1,9 +1,10 @@
-package com.example.tony_albanese.moodtracker.controller
+package com.example.tony_albanese.moodtracker
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import com.example.tony_albanese.moodtracker.controller.*
 import com.example.tony_albanese.moodtracker.model.DailyMood
 import com.google.gson.Gson
 import org.junit.After
