@@ -17,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:text="This is the text."
-            android:textSize="18sp"
+            style="@style/selected_mood_text_view_style"
             tools:text="Sample Text View" />
 
         <android.support.v7.widget.RecyclerView
