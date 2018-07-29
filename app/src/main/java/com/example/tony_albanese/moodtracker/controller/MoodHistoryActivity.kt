@@ -25,9 +25,11 @@ class MoodHistoryActivity : AppCompatActivity() {
             moodHistoryList = intent.extras.get(KEY_DAILY_MOOD_LIST) as ArrayList<DailyMood>
         }
 
+        //Setup a layout manager for the recycler view.
         layoutManager = LinearLayoutManager(this)
         mood_history_recycler_view.layoutManager = layoutManager
 
+        //Setup the adapter and pass it the moodHistoryList for data.
         adapter = MoodHistoryRecyclerAdapter(moodHistoryList)
         mood_history_recycler_view.adapter = adapter
 

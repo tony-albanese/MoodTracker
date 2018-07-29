@@ -27,6 +27,8 @@ class MainActivityTest {
 
     @Before
     fun setUp() {
+        //Declare a Context object as well as a reference to SharedPreferences.
+        //Need a test ArrayList as well.
         val context = InstrumentationRegistry.getContext()
         preferences = context.getSharedPreferences("TEST_PREFERENCES", Context.MODE_PRIVATE)
         testArrayList.add(testDailyMood)
@@ -41,7 +43,7 @@ class MainActivityTest {
     fun tearDown() {
     }
 
-    @Test
+    @Test //Test to make sure saving comments to SharedPreferences works.
     fun saveCommentSharedPreferencesTest() {
         val string1 = "Test 1"
         saveCommentToSharedPrefeences(preferences, PREF_KEY, string1)
@@ -49,7 +51,7 @@ class MainActivityTest {
         assertEquals(string1, string2)
     }
 
-    @Test
+    @Test //Test for recovering a string from shared preferences.
     fun getStringFromSharedPreferencesTest() {
         val string1 = "Test"
         preferences.edit().putString(PREF_KEY, string1).apply()
@@ -57,7 +59,7 @@ class MainActivityTest {
         assertEquals(string1, string2)
     }
 
-    @Test
+    @Test //Test to esnure DailyMood object is serialized and saved properly to SharedPreferences.
     fun saveDailyMoodTest() {
         saveDailyMoodToSharedPreferences(preferences, PREF_KEY, testDailyMood)
         val string1 = gson.toJson(testDailyMood)
@@ -65,7 +67,7 @@ class MainActivityTest {
         assertEquals(string1, string2)
     }
 
-    @Test
+    @Test //Test to make sure ArrayList is serialzed and saved to SharedPrefernces.
     fun saveArrayListToSharedPreferencesTest() {
         saveArrayListToSharedPreferences(preferences, PREF_KEY, testArrayList)
         val savedString = preferences.getString(PREF_KEY, "")
@@ -73,21 +75,21 @@ class MainActivityTest {
         assertEquals(savedString, testString)
     }
 
-    @Test
-    fun testDefaultPreferncesResponse() {
+    @Test //Test to make sure default preferences response is loaded if key not found.
+    fun testDefaultPreferencesResponse() {
         val string1 = "nothing"
         val string2 = preferences.getString("BAD_KEY", "nothing")
         assertEquals(string1, string2)
     }
 
-    @Test
+    @Test //Test to ensure object is restored properly from JSON.
     fun testConvertFromJSON_dailyMood() {
         val savedString = gson.toJson(testDailyMood)
         val restoredMood: DailyMood = gson.fromJson(savedString, DailyMood::class.java)
         assertEquals(true, restoredMood.equals(testDailyMood))
     }
 
-    @Test
+    @Test //Tst to ensure date logic check works if dates are different.
     fun differentDatesUpdateTest() {
     testDailyMood.mDate = "14/07/18"
         val today="15/07/18"
@@ -95,19 +97,19 @@ class MainActivityTest {
     }
 
 
-    @Test
+    @Test //Test to ensure date logic check works if dates are the same.
     fun sameDatesUpdateTest() {
         testDailyMood.mDate = "14/07/18"
         val today="14/07/18"
         assertEquals(true, testDailyMood.mDate.equals(today))
     }
 
-    @Test
+    @Test //Test to ensure that the array size used in this class is the right size.
     fun testLargeArraySize(){
         assertEquals(11, largeArrayList.size)
     }
 
-    @Test
+    @Test //Test to ensure the array cleaning function limits the size to 7 members.
     fun testArrayCleaningFunction(){
         val cleanedArray = cleanArrayList(7, largeArrayList)
         assertEquals(7, cleanedArray.size)

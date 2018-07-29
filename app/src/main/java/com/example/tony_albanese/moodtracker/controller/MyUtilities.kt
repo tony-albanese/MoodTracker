@@ -12,7 +12,6 @@ import java.util.*
 
 
 //This simple function converts a date object into a readable String for the app.
-//TODO: Build unit test for convertDate()
 fun convertDate(date: Date): String {
 
     val dateFormat = SimpleDateFormat("dd/MM/yyy") //Date should be in 02/02/1982 format.

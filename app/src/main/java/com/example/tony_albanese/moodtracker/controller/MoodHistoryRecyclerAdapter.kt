@@ -51,7 +51,6 @@ class MoodHistoryRecyclerAdapter(val dailyMoodList: ArrayList<DailyMood>) : Recy
         viewHolder.historyImageView.setImageResource(currentDailyMood.mImageId)
 
         //This line converts the backgroundColor value to an actual android color object.
-
         val color = ContextCompat.getColor(viewHolder.cardView.context, currentDailyMood.mBackgoundColor)
         viewHolder.cardView.setCardBackgroundColor(color)
     }
