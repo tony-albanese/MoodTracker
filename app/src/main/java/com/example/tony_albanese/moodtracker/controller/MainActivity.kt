@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         loadMoodList()
         loadDailyMood()
         loadComment()
-        foo(convertDate(Date()))
+        updateUI(convertDate(Date()))
 
         //Set the click listener for the fab to navigate to the MoodHistoryActivity.
         root_frame_layout.fab_mood_history.setOnClickListener { v: View ->
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     //Date is verified and daily mood saved when the activity is paused.
     override fun onPause() {
-        foo(convertDate(Date()))
+        updateUI(convertDate(Date()))
         saveDailyMoodToSharedPreferences(preferences, KEY_DAILY_MOOD, currentDailyMood) //Save current mood whenever the activity is paused.
         super.onPause()
     }
@@ -75,14 +75,14 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         loadDailyMood() // Load here. Needs to be loaded before user interacts with MainActivity.
         loadComment() //Load here before user can interact with Activity.
-        foo(convertDate(Date()))
+        updateUI(convertDate(Date()))
         super.onRestart()
     }
 
     //Moodlist is loaded when the activity is resumed and the date is checked.
     override fun onResume() {
         loadMoodList()
-        foo(convertDate(Date()))
+        updateUI(convertDate(Date()))
         super.onResume()
     }
 
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 
     //This function creates the dialog.
     private fun createCommentDialogue() {
-        foo(convertDate(Date()))
+        updateUI(convertDate(Date()))
         val commentText = EditText(this)
         val dialog = AlertDialog.Builder(this)
         dialog.setView(commentText)
@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
     //This is the function we want called when the user clicks on a mood in the list.
     private fun moodItemClicked(mood: Mood) {
         dailyComment = ""
-        foo(convertDate(Date()))
+        updateUI(convertDate(Date()))
         enableTouchEvents = false
         Handler().postDelayed({
             enableTouchEvents = true
@@ -203,7 +203,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Thus function checks current date against the object's date and adds to the list if they don't match.
-    fun foo(todaysDate:String ){
+    fun updateUI(todaysDate:String ){
         //If the dates don't align, the day has changed. Add the the currentDailyMood to the list. Then,
         //reset the dailyMood object.
         if (!currentDailyMood.mDate.equals(todaysDate)) {
